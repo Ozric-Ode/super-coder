@@ -1,0 +1,23 @@
+.ranklistHeader {
+	background-color: cornflowerblue;
+	height: 50px;
+	padding-top: 10px;
+	padding-left: 8px;
+}
+
+.ranklistHeaderFont {
+	color: whitesmoke
+}
+
+.ranklistHeadingStyle {
+	margin-top: 20px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+	text-align: center;
+}
+.ranklistStyle {
+	margin-top: 15px;
+	/* margin-left:200px; */
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px;
+}
