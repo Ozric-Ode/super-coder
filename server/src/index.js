@@ -10,7 +10,6 @@ app.use(express.static(publicDirPath))
 app.use(submitRouter)
 
 
-
 app.listen(PORT,()=>{
     console.log(`app is running on ${PORT}`)
 })
