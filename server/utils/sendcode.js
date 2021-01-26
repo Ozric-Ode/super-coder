@@ -1,6 +1,6 @@
 const request = require('postman-request')
 
-const getToken = ({code,stdin}, callback) => {
+const getToken = ({code,stdin,language_id}, callback) => {
     const options = {
         method: 'POST',
         url: 'https://judge0-ce.p.rapidapi.com/submissions',
@@ -12,7 +12,7 @@ const getToken = ({code,stdin}, callback) => {
             useQueryString: true
         },
         body: {
-            language_id: 52,
+            language_id,
             source_code: code,
             stdin,
             

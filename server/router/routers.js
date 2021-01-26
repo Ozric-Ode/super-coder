@@ -3,14 +3,15 @@ const getToken=require('../utils/sendcode')
 const workOnToken=require('../utils/recieveSolution')
 
 
-const submitRouter = new express.Router()
+const submitRouter = new express.Router()   
 
 submitRouter.post('/submit', (req, res) => {
    
     // console.log(a.code)
     const obj={
         code:req.body.code,
-        stdin:req.body.stdin
+        stdin:req.body.stdin,
+        language_id:req.body.language_id,
     }
     getToken(obj,(error,body={})=>{
         

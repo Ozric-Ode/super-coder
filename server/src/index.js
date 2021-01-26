@@ -8,7 +8,9 @@ const PORT=process.env.PORT
 app.use(express.json())
 app.use(express.static(publicDirPath))
 app.use(submitRouter)
-
+app.get('/abc',(req,res)=>{
+res.send("abcasdas")
+})
 
 app.listen(PORT,()=>{
     console.log(`app is running on ${PORT}`)
