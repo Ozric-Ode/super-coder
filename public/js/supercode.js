@@ -2,6 +2,7 @@ const $btn = document.querySelector('#run')
 const $text = document.querySelector('#code')
 const $solution =document.querySelector('#sample_out')
 const $input=document.querySelector('#sample_in')
+const $languageSelector=document.querySelector('#language-selector')
 
 const getdata = async (obj) => {
     try {
@@ -51,7 +52,7 @@ $btn.addEventListener('click', () => {
     const obj = {
         code: data,
         stdin:window.btoa($input.value)||null,
-
+        language_id:$languageSelector.value
     }
 
     getdata(obj).then((result) => {

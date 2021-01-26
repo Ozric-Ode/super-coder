@@ -1,0 +1,26 @@
+/* .Language-selector{
+    /* margin-right:5%; */
+    /* width: 100px; */
+/* } */ 
+ h4{
+    margin-top: 5px;
+}
+ h5{
+    margin: 10px 0 15px 0;
+} 
+#code{
+    margin-bottom: 10px;
+}
+.container-fluid
+{
+    padding: 0 3%;
+}
+textarea {
+    resize: none;
+}
+.submit{
+    margin:0 20px 0 0;
+}
+.fileinput{
+    margin :15px 0 20px 0;
+}
