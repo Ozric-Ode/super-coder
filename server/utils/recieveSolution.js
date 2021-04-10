@@ -1,23 +1,29 @@
 const request = require('postman-request')
 
-const workOnToken = async (body, callback) => {
-    setTimeout(() => {
-       const options = {
-            method: 'GET',
-            url: `https://judge0-ce.p.rapidapi.com/submissions/${body.token}`,
-            qs: { base64_encoded: 'true', fields: '*' },
-            headers: {
-                'x-rapidapi-key': process.env.JUDGEZERO_API_KEY
+const workOnToken = async(token) => {
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const options = {
+                method: 'GET',
+                url: `https://judge0-ce.p.rapidapi.com/submissions/${token.token}`,
+                qs: { base64_encoded: 'true', fields: '*' },
+                headers: {
+                    'x-rapidapi-key': process.env.JUDGEZERO_API_KEY
+                }
             }
-        };
-        request(options, (error, response)=>{
-            if (error) {
-                return callback("Judge0 has stopped working")
-            }
-            callback(undefined, response.body)
-            console.log(response.body);
-        });
-    }, 8000)
+            request(options, (error, response) => {
+                if (error) {
+                    // callback("Judge0 has stopped working")
+                    reject("Judge0 has stopped working ")
+                }
+                // callback(undefined, response.body)
+                // console.log(response.body);
+                resolve(response.body)
+            })
+        }, 8000)
+
+    })
 }
 module.exports = workOnToken
 
@@ -79,7 +85,3 @@ module.exports = workOnToken
 
 //     callback(undefined, body)
 //     }
-
-
-
-
