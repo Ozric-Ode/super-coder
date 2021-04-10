@@ -8,7 +8,6 @@ webpagesRouter.get('/ide', (req, res) => {
 
     res.sendFile('ide.html', { root: path.join(__dirname, '../../Webpages') })
 })
-
 webpagesRouter.get('/login', (req, res) => {
 
     res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })

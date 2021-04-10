@@ -5,6 +5,8 @@ const $password = document.querySelector('.password')
 const $signin = document.querySelector('.actualSignin')
 const $signinUsername = document.querySelector('.signinUsername')
 const $signinPassword = document.querySelector('.signinPassword')
+
+// console.log($username.value)
 $signup.addEventListener('click', async() => {
     const user = {
         username: $username.value,
@@ -24,7 +26,7 @@ $signup.addEventListener('click', async() => {
         const data = await response.json()
         console.log(data)
     } catch (error) {
-        console.error('madarchod ' + error);
+        console.error(error);
     }
 
 
