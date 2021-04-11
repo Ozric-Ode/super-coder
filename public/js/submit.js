@@ -4,6 +4,8 @@
     const $btn= document.querySelector("#sub");
     const $output =document.querySelector('#sample_out')
     const $input=document.querySelector('#sample_in')
+    const $lang=document.querySelector('#lang')
+
 
     const answer= async (obj) => {
 
@@ -18,11 +20,13 @@
             },
             body: JSON.stringify(obj)
         })
-        console.log("hii");
-      //  console.log(await res.json());
-     //   const ansss=(await res);
-        console.log(res);
-    return res;
+        //console.log(res);
+      //  console.log(res.body);
+     const data = await res.json();
+        console.log(data);
+        return data;
+     //   console.log( res);
+   // return res;
     }
     catch(e)
     {
@@ -34,13 +38,15 @@
 
     $btn.addEventListener("click",()=>{
         const obj = {
-                code: "I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbih2b2lkKSB7CiAgY2hhciBuYW1lWzEwXTsKICBzY2FuZigiJXMiLCBuYW1lKTsKICBwcmludGYoImhlbGxvLCAlc1xuIiwgbmFtZSk7CiAgcmV0dXJuIDA7Cn0=",
-                lang: "52"
+                code: window.btoa($data.value), 
+                //"I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbih2b2lkKSB7CiAgY2hhciBuYW1lWzEwXTsKICBzY2FuZigiJXMiLCBuYW1lKTsKICBwcmludGYoImhlbGxvLCAlc1xuIiwgbmFtZSk7CiAgcmV0dXJuIDA7Cn0=",
+                lang: $lang.value
             }
 answer(obj).then((response)=>{
-    console.log(response);
+    console.log("hgggggggg");
+    console.log(response.output);
+    $output.value=window.atob(response.output);
 })
-
-
+        console.log($lang.value)
         console.log($data.value) 
     });

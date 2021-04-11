@@ -16,7 +16,7 @@ approute.post('/submit',(req,res) => {
             code:req.body.code,
             lang:req.body.lang,
         }
-         console.log("hedddddddd"+obj.code);
+         console.log("hedddddddd"+obj.lang);
     //   return  res.send("asddddd");
         
       
@@ -39,8 +39,17 @@ approute.post('/submit',(req,res) => {
                         {
                             return res.status(500).send(er);
                         }
-                        console.log((obj2.data.stdout));
-                        return res.send(obj2.data.stdout);
+                        ///////////////////////////////
+                    //    console.log(obj2);
+
+                        console.log(obj2);
+                       const anss= {
+                            output:obj2.data.stdout
+                        }
+                   //     if(obj2.data.stdout)
+                        
+                        return res.send(JSON.stringify(anss));
+                   //     return res.send(obj2.data.compile_output);
                     })
                 }, 5000);
         
