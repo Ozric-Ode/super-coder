@@ -1,12 +1,13 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+const cookieParser = require('cookie-parser')
 const publicDirPath = path.join(__dirname, '../../public')
 const submitRouter = require('../router/routers')
 const webpagesRouter = require('../router/webpages.js')
-const signupRouter=require('../router/signup.js')
+const signupRouter=require('../router/register_login.js')
 const PORT = process.env.PORT
-
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.static(publicDirPath))
 app.use(submitRouter)
