@@ -1,7 +1,7 @@
 //const { json } = require("express");
 
     const $data=document.querySelector("#code");//not able to access
-    const $btn= document.querySelector("#sub");
+    const $btn= document.querySelector("#run");
     const $output =document.querySelector('#sample_out')
     const $input=document.querySelector('#sample_in')
     const $lang=document.querySelector('#lang')
