@@ -3,89 +3,65 @@
 
 <head>
     <meta charset="utf-8">
-    <link href="css/styleslogin.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Login - Super Coder</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
 </head>
-</body>
-<div class="container" id="container">
-    <div class="form-container sign-up-container">
-        <form>
-            <h1>Create Account</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <span>or use your email for registration</span>
-            <input class="username" type="text" placeholder="Username" />
-            <input class="email" type="email" placeholder="Email" />
-            <input class="password" type="password" placeholder="Password" />
-            <button class="actualSignup">Sign Up</button>
-        </form>
-    </div>
-    <div class="form-container sign-in-container">
-        <form>
-            <h1>Sign in</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <span>or use your account</span>
-            <input class="signinUsername" type="text" placeholder="Username" />
-            <input class="signinPassword" type="password" placeholder="Password" />
-            <a href="#">Forgot your password?</a>
-            <button class="actualSignin">Sign In</button>
-        </form>
-    </div>
-    <div class="overlay-container">
-        <div class="overlay">
-            <div class="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
-                <p>To keep connected with us please login with your personal info</p>
-                <button class="ghost" id="signIn">Sign In</button>
-            </div>
-            <div class="overlay-panel overlay-right">
-                <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button class="ghost" id="signUp">Sign Up</button>
+
+<body class="bg-gradient-primary" style="color: var(--blue);background: #4e73df;">
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="margin-top: 50px;">
+            <div class="col">
+                <div class="card shadow-lg o-hidden border-0 my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-flex">
+                                <div class="flex-grow-1 bg-login-image"
+                                    style="background-image: url(&quot;img/coderlogin.png&quot;);"></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h4 class="text-dark mb-4">Welcome Back!</h4>
+                                    </div>
+                                    <form class="user">
+                                        <div class="form-group">
+                                            <input class="form-control form-control-user" type="email" id="instituteId"
+                                                aria-describedby="emailHelp" placeholder="Enter Student Id.."
+                                                name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control form-control-user" type="password" id="password"
+                                                placeholder="Password" name="password">
+                                        </div>
+                                        <button
+                                            class="btn btn-primary btn-block text-white btn-user signin">Login</button>
+                                        <hr>
+                                    </form>
+                                    <div class="text-center"><a class="small" href="forgot-password.html">Forgot
+                                            Password?</a></div>
+                                    <div class="text-center"><a class="small" href="/register">Create an
+                                            Account!</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<footer>
-    <p>
-        Created with <i class="fa fa-heart"></i> by
-        <a target="_blank" href="https://florin-pop.com">Florin Pop</a> - Read how I created this and how you can join
-        the challenge
-        <a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
-    </p>
-</footer>
-<script src="./js/loginFrontend.js">
-</script>
-<script src="./js/login.js"></script>
-
-<body>
-
-</html>
-
-
-<!-- 
-<!doctype html>
-<html>
-
-<head>
-</head>
-
-<body>
-    <form>
-        <h1>Sign in</h1>
-
-        <input class="signinUsername" type="text" placeholder="Username" />
-        <input class="signinPassword" type="password" placeholder="Password" />
-        <button class="actualSignin">Sign In</button>
-    </form>
-    <script src="../js/login.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script src="js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
-</html> -->
+</html>
