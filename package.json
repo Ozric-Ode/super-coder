@@ -24,9 +24,11 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
+    "events": "^3.3.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "path": "^0.12.7",
     "postman-request": "^2.88.1-postman.28",
     "unirest": "^0.6.0"
   }

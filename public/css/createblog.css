@@ -1,0 +1,24 @@
+* {
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
+}
+
+.container {
+  position: absolute;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translateX(-50%);
+}
+
+textarea {
+  border: 1px solid lightgrey;
+  text-align: left;
+}
+
+button {
+  margin: 10px 0;
+}
+
+#app p {
+  text-align: left;
+}
