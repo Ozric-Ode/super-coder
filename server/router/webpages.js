@@ -45,4 +45,9 @@ webpagesRouter.get('/createblog',(req,res)=>{
     res.sendFile('createblog.html',{root:path.join(__dirname,'../../Webpages')})
 })
 
+webpagesRouter.get('/readblog',(req,res)=>{
+    res.sendFile('readblog.html',{root:path.join(__dirname,'../../Webpages')})
+})
+
+
 module.exports = webpagesRouter
