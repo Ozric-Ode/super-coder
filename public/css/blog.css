@@ -1,0 +1,35 @@
+.article {
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #ccc;
+}
+
+.social a {
+    padding: 0 0.5em;
+}
+
+
+/* 
+body {
+    background-color: red;
+} */
+
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid #61de2a;
+}
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid #ffa500;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
