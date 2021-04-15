@@ -1,9 +1,9 @@
 const express = require('express')
 const getToken = require('../utils/sendcode')
 const workOnToken = require('../utils/recieveSolution')
-
+var mysql = require('mysql');
 const submitRouter = new express.Router()
-submitRouter.post('/submit', async(req, res) => {
+submitRouter.post('/submit', async (req, res) => {
     try {
         const obj = {
             code: req.body.code,
@@ -15,6 +15,38 @@ submitRouter.post('/submit', async(req, res) => {
         const finalSolution = await workOnToken(token)
         console.log(finalSolution)
         return res.send(finalSolution)
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send(error)
+    }
+})
+
+submitRouter.patch('/updatestudent', async (req, res) => {
+    try {
+
+        const student = {
+            ...req.body
+        }
+        const Student_Id = student.Student_Id;
+        delete student.Student_Id;
+        console.log(student)
+        const connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: 'password',
+            database: 'supercoder',
+        });
+        connection.connect();
+        connection.query(
+            'update student SET ? where student_id=?', [student, Student_Id], (error, results) => {
+                if (error) {
+                    throw error
+                };
+            }
+        );
+        connection.end();
+
+        return res.sendStatus(200)
     } catch (error) {
         console.log(error)
         return res.status(400).send(error)

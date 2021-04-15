@@ -24,8 +24,10 @@ $signin.addEventListener('click', async (e) => {
         if (response.status !== 200) {
             throw new Error(data.errormsg)
         }
-        console.log(response.status)
+        // console.log(response.status)
         // window.alert('congratulations for logging in')
+        window.localStorage.setItem('Student_Id', user.Student_Id);
+        window.localStorage.setItem('student', JSON.stringify(data));
         window.location.href = '/profile';
     } catch (error) {
         alert(error.message)

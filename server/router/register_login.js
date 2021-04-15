@@ -4,42 +4,70 @@ const path = require('path')
 const signupRouter = new express.Router()
 const bcrypt = require('bcrypt')
 const generateAuthToken = require('../Security/jwt');
+const jwt = require('jsonwebtoken');
+const verifytoken = require('../Security/verifytoken-middleware');
 const { errorMonitor } = require('events');
-const jwt = require('jsonwebtoken')
+const { resolve } = require('path');
+const { rejects } = require('assert');
 
-signupRouter.post('/register', async (req, res) => {
-  try {
+const secret = process.env.JWT_KEY
 
-    const student = {
-      ...req.body
-    }
-    student.password = await bcrypt.hash(student.password, 8)
-    console.log(student)
 
+const insertStudent = (student) => {
+  return new Promise((resolve, reject) => {
     const connection = mysql.createConnection({
       host: 'localhost',
       user: 'root',
       password: 'password',
       database: 'supercoder',
     });
+
     connection.connect();
     connection.query(
       'Insert into student SET ?', student, (error, results) => {
+        console.log(error)
         if (error) {
-          throw error
-        };
+          reject(error)
+        }
+        resolve(results)
       }
     );
     connection.end();
-    const token = await generateAuthToken(student.Student_Id)
-    console.log(token)
-    const decoded = jwt.verify(token, 'sexysexysexysexyseyxy')
-    console.log(decoded)
-    res.cookie('authtoken', token, {
-      httpOnly: true,
-      maxAge: 1000000,
+  })
+}
+
+signupRouter.post('/register', async (req, res) => {
+  var flag = false;
+  try {
+    const student = {
+      ...req.body
+    }
+    student.password = await bcrypt.hash(student.password, 8)
+    console.log(student)
+
+    insertStudent(student).then(async (student) => {
+      const token = await generateAuthToken(student.Student_Id)
+      console.log(token)
+      const decoded = jwt.verify(token, secret)
+      console.log(decoded)
+      res.cookie('authtoken', token, {
+        httpOnly: true,
+        maxAge: 100000000,
+      })
+      res.send().status(200)
+    }).catch((error) => {
+      console.log(error)
+      if(error.sqlMessage.includes('PRIMARY'))
+      {
+        const error={
+          msg:'Student with the Student ID Already Exists'
+        }
+      return res.status(400).send(JSON.stringify(error))
+      }
     })
-    res.send().status(200)
+
+
+
   }
   catch (error) {
     console.log(error)
@@ -58,20 +86,22 @@ const findUserAndVerifyCredentials = (Student_Id, password) => {
     });
     connection.connect();
     connection.query(
-      'Select Student_id, password from student where Student_id = ?', [Student_Id], async (error, results) => {
+      'Select * from student where Student_id = ?', [Student_Id], async (error, results) => {
         console.log(results)
         if (results.length === 0) {
           return reject('Student Not Found')
         }
-        const verifyPassword = await bcrypt.compare(password, results[0].password)
+        const verifyPassword = await bcrypt.compare(password, results[0].Password)
         if (!verifyPassword) {
           return reject('Wrong Password')
         }
+        delete results[0].Password
         resolve(results[0])
       })
     connection.end()
   })
 }
+
 
 
 signupRouter.post('/login', async (req, res) => {
@@ -81,14 +111,14 @@ signupRouter.post('/login', async (req, res) => {
       console.log(student)
       const token = await generateAuthToken(req.body.Student_Id)
       console.log(token)
-      const decoded = jwt.verify(token, 'sexysexysexysexyseyxy')
-        console.log(decoded)
-      res.cookie('authtoken', token, {  
+      const decoded = jwt.verify(token, secret)
+      console.log(decoded)
+      res.cookie('authtoken', token, {
         httpOnly: true,
         maxAge: 1000000,
       })
       const obj = {
-        ...req.body,
+        ...student,
         token
       }
       return res.status(200).send(JSON.stringify(obj))
@@ -109,7 +139,17 @@ signupRouter.post('/login', async (req, res) => {
     res.status(400).send(JSON.stringify(errorobj))
   }
 })
-signupRouter.get
+signupRouter.get('/logout', verifytoken, (req, res) => {
+  if (req.Student_Id) {
+    res.cookie('authtoken', '', {
+      httpOnly: true,
+      maxAge: 0
+    })
+    return res.redirect('/login')
+  }
+
+  res.redirect('/login')
+})
 
 
 module.exports = signupRouter

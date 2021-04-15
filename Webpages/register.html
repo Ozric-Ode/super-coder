@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
+    <style>
+        .dropdown{
+            border-radius: 30px;
+            height: 45px;
+        }
+    </style>
 </head>
 
 <body class="bg-gradient-primary">
@@ -37,6 +43,33 @@
                                         <input class="form-control form-control-user" type="text" id="LastName"
                                             placeholder="Last Name" name="last_name">
                                     </div>
+                                </div>
+                                <div class="form-group row">
+                                   
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <!-- <input class="form-control form-control-user" type="text" id="semester"
+                                            placeholder="Semester" name="semester"> -->
+                                            <select class="dropdown form-control" name="select1" id="batch">
+                                                <option value="0">Select Batch</option>
+                                                <option value="2017">2017</option>
+                                                <option value="2018">2018</option>
+                                                <option value="2019">2019</option>
+                                                <option value="2020">2020</option>
+                                            </select>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                        <select class="dropdown form-control" name="semester" id="semester">
+                                            <option value="0">Select Semester</option>
+                                            <option value="1">I</option>
+                                            <option value="2">II</option>
+                                            <option value="3">III</option>
+                                            <option value="4">IV</option>
+                                            <option value="5">V</option>
+                                            <option value="6">VI</option>
+                                            <option value="7">VII</option>
+                                            <option value="8">VIII</option>
+                                        </select>
+                                </div>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control form-control-user" id="StudentId"

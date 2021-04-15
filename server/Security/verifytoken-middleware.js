@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 
+const secret=process.env.JWT_KEY
 const verifytoken = (req, res, next) => {
     const token = req.cookies.authtoken || ''
 
@@ -7,8 +8,7 @@ const verifytoken = (req, res, next) => {
         return next()
     }
     try {
-        const decoded = jwt.verify(token, 'sexysexysexysexyseyxy')
-        console.log(decoded)
+        const decoded = jwt.verify(token,secret )
         if (!decoded) {
             return next()
         }
