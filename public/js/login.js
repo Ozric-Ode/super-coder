@@ -26,7 +26,7 @@ $signin.addEventListener('click', async (e) => {
         }
         // console.log(response.status)
         // window.alert('congratulations for logging in')
-        window.localStorage.setItem('Student_Id', user.Student_Id);
+        window.localStorage.setItem('Student_Id', data.Student_Id);
         window.localStorage.setItem('student', JSON.stringify(data));
         window.location.href = '/profile';
     } catch (error) {

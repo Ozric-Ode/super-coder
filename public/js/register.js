@@ -34,17 +34,20 @@ $signup.addEventListener('click', async(e) => {
             body: JSON.stringify(user)
 
         })
-        const data=await response.json()
+      
         if(response.status===400)
-        {
+        {     const data=await response.json()
             console.log(data)
            return window.alert(data.msg)
         }
-        
+        if(response.status===200)
+        {
+            console.log('register ho gaya')
         delete user.password
         window.localStorage.setItem('Student_Id', user.Student_Id);
         window.localStorage.setItem('student', JSON.stringify(user));
         window.location.href = '/profile';
+        }
     } catch (error) {
         console.error('adsad ' + error);
         alert(error.message)
