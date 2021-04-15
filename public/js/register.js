@@ -1,6 +1,8 @@
 const $signup = document.querySelector('.Signup')
 const $firstName = document.querySelector('#FirstName')
 const $lastName = document.querySelector('#LastName')
+const $semester = document.querySelector('#semester')
+const $batch = document.querySelector('#batch')
 const $studentId = document.querySelector('#StudentId')
 const $email = document.querySelector('#email')
 const $password = document.querySelector('#Password')
@@ -19,7 +21,9 @@ $signup.addEventListener('click', async(e) => {
         email: $email.value,
         password: $password.value,
         First_Name:$firstName.value.trim(),
-        Last_Name:$lastName.value.trim()
+        Last_Name:$lastName.value.trim(),
+        Batch:$batch.value,
+        Semester:$semester.value    
     }
    
         const response = await fetch('/register', {
@@ -30,10 +34,20 @@ $signup.addEventListener('click', async(e) => {
             body: JSON.stringify(user)
 
         })
+        const data=await response.json()
+        if(response.status===400)
+        {
+            console.log(data)
+           return window.alert(data.msg)
+        }
+        
+        delete user.password
+        window.localStorage.setItem('Student_Id', user.Student_Id);
+        window.localStorage.setItem('student', JSON.stringify(user));
         window.location.href = '/profile';
     } catch (error) {
-        console.error('madarchod ' + error);
-        alert('error')
+        console.error('adsad ' + error);
+        alert(error.message)
     }
 })
 

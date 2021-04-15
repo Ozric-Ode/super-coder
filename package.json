@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./server/src/index.js",
-    "dev": "env-cmd -f dev.env nodemon ./server/src/index.js"
+    "dev": "nodemon ./server/src/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,13 +18,16 @@
   },
   "homepage": "https://github.com/Ozric-Ode/super-coder#readme",
   "devDependencies": {
-    "env-cmd": "^10.1.0",
     "nodemon": "^2.0.7"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
+
     "events": "^3.3.0",
+
+    "dotenv": "^8.2.0",
+
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",

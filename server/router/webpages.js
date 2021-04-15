@@ -6,7 +6,6 @@ const verifytoken = require('../Security/verifytoken-middleware.js')
 webpagesRouter.get('/', verifytoken, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
-
     // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
     res.redirect('/login')
 })

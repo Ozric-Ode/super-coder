@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken')
-
-
+const secret=process.env.JWT_KEY
 const generateAuthToken = (payload) => {
     const token = jwt.sign({
         Student_Id: payload
-    }, 'sexysexysexysexyseyxy', { expiresIn: '10days' });
+    }, secret, { expiresIn: '10days' });
 
     return token
 }
