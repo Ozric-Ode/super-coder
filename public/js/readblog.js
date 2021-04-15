@@ -2,6 +2,28 @@ const $author=document.querySelector('#author');
 const $title=document.querySelector('#title');
 const $ddate=document.querySelector('#date');
 const $Content=document.querySelector('#blogText');
+//window.location.href = 'http://www.google.com';
+function url_redirect(url){
+    var X = setTimeout(function(){
+        window.location.assign(url);
+        return true;
+    },300);
+
+    if( window.location = url ){
+        clearTimeout(X);
+        return true;
+    } else {
+        if( window.location.href = url ){
+            clearTimeout(X);
+            return true;
+        }else{
+            clearTimeout(X);
+            window.location.assign(url);
+            return true;
+        }
+    }
+    return false;
+};
 const blogs= async(obj)=>{
     try{
         const data = await fetch('/readblog',{
@@ -69,10 +91,20 @@ moreblog=localStorage.getItem('moreblog');
 ob.oft=parseInt(ofst)+1;
 if(moreblog==1)
 {
+   
     blogs(ob).then(response=>{
     console.log("eknumber");
     console.log(response.row[0]);
-     setd(response.row[0]);
+   
+  //  var x="http://localhost:3300/readblog/"+response.row[0].Blog_id;
+     var x="http://localhost:3300/readblog/"+response.row[0].Blog_id;
+    url_redirect(x);
+//location.href=x;
+
+//window.open('http://www.google.com');
+console.log(x);
+//document.write('heyyyyy');
+    // setd(response.row[0]);
     
 })
 localStorage.setItem('oft',ob.oft);
