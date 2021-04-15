@@ -1,18 +1,13 @@
 var mysql = require('mysql');
 const express = require('express')
-const path = require('path')
 const signupRouter = new express.Router()
 const bcrypt = require('bcrypt')
 const generateAuthToken = require('../Security/jwt');
 const jwt = require('jsonwebtoken');
 const verifytoken = require('../Security/verifytoken-middleware');
-const { errorMonitor } = require('events');
-const { resolve } = require('path');
-const { rejects } = require('assert');
+
 
 const secret = process.env.JWT_KEY
-
-
 const insertStudent = (student) => {
   return new Promise((resolve, reject) => {
     const connection = mysql.createConnection({
@@ -25,8 +20,9 @@ const insertStudent = (student) => {
     connection.connect();
     connection.query(
       'Insert into student SET ?', student, (error, results) => {
-        console.log(error)
         if (error) {
+          console.log('asdfasfsdaf')
+          console.log(error)
           reject(error)
         }
         resolve(results)
@@ -35,9 +31,7 @@ const insertStudent = (student) => {
     connection.end();
   })
 }
-
 signupRouter.post('/register', async (req, res) => {
-  var flag = false;
   try {
     const student = {
       ...req.body
@@ -45,16 +39,14 @@ signupRouter.post('/register', async (req, res) => {
     student.password = await bcrypt.hash(student.password, 8)
     console.log(student)
 
-    insertStudent(student).then(async (student) => {
+    insertStudent(student).then(async (student1) => {
+
       const token = await generateAuthToken(student.Student_Id)
-      console.log(token)
-      const decoded = jwt.verify(token, secret)
-      console.log(decoded)
       res.cookie('authtoken', token, {
         httpOnly: true,
         maxAge: 100000000,
       })
-      res.send().status(200)
+      res.status(200).send()
     }).catch((error) => {
       console.log(error)
       if(error.sqlMessage.includes('PRIMARY'))
@@ -111,8 +103,7 @@ signupRouter.post('/login', async (req, res) => {
       console.log(student)
       const token = await generateAuthToken(req.body.Student_Id)
       console.log(token)
-      const decoded = jwt.verify(token, secret)
-      console.log(decoded)
+
       res.cookie('authtoken', token, {
         httpOnly: true,
         maxAge: 1000000,
