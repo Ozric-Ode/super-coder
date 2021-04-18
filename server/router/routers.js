@@ -3,6 +3,7 @@ const getToken = require('../utils/sendcode')
 const workOnToken = require('../utils/recieveSolution')
 var mysql = require('mysql');
 const submitRouter = new express.Router()
+const dbFunction=require('../database/connectToDb.js')
 submitRouter.post('/submit', async (req, res) => {
     try {
         const obj = {
@@ -23,29 +24,15 @@ submitRouter.post('/submit', async (req, res) => {
 
 submitRouter.patch('/updatestudent', async (req, res) => {
     try {
-
         const student = {
             ...req.body
         }
         const Student_Id = student.Student_Id;
         delete student.Student_Id;
         console.log(student)
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'password',
-            database: 'supercoder',
-        });
-        connection.connect();
-        connection.query(
-            'update student SET ? where student_id=?', [student, Student_Id], (error, results) => {
-                if (error) {
-                    throw error
-                };
-            }
-        );
-        connection.end();
-
+        const pool=await dbFunction.connectToDb();
+        const [rows,fields]=await pool.query('update student SET ? where student_id=?', [student, Student_Id]);
+        await dbFunction.disconnectFromDb(pool);
         return res.sendStatus(200)
     } catch (error) {
         console.log(error)

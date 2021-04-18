@@ -77,7 +77,7 @@ addblog(obj);
        let html = '';
       html +=
             `
-      <p>${obj.title} </br>
+      <p>${obj.Title} </br>
          <b>Posted on:</b> ${new Date().toLocaleDateString()},
 
          ${new Date().toLocaleTimeString()}
