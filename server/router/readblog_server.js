@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 const express = require('express');
 const blogsRouter = new express.Router();
-
+const dbFunction=require('../database/connectToDb.js')
 
 blogsRouter.post('/readblog', async (req, res) => {
     console.log("lllllllllkkkkkk");

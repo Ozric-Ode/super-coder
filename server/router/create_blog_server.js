@@ -3,8 +3,7 @@ const express = require('express');
 const { resolve } = require('path');
 const { nextTick } = require('process');
 const createblogRouter = new express.Router();
-
-
+const dbFunction=require('../database/connectToDb.js')
 class Blog {
 
     constructor(
