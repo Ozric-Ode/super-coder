@@ -51,6 +51,10 @@ webpagesRouter.get('/readblog',(req,res)=>{
     res.sendFile('readblog.html',{root:path.join(__dirname,'../../Webpages')})
 })
 
+webpagesRouter.get('/createcourse',(req,res)=>{
+    res.sendFile('createCourse.html',{root:path.join(__dirname,'../../Webpages')})
+})
+
 webpagesRouter.get('/login/professor', verifytoken.verifytokenProfessor, (req, res) => {
     if (req.Professor_Id) {
         return res.redirect('/profile/professor')
