@@ -1,14 +1,13 @@
 const jwt = require('jsonwebtoken')
-
-const secret=process.env.JWT_KEY
-const verifytoken = (req, res, next) => {
+const secret = process.env.JWT_KEY
+const verifytokenStudent = (req, res, next) => {
     const token = req.cookies.authtoken || ''
 
     if (token === '') {
         return next()
     }
     try {
-        const decoded = jwt.verify(token,secret )
+        const decoded = jwt.verify(token, secret)
         if (!decoded) {
             return next()
         }
@@ -20,4 +19,29 @@ const verifytoken = (req, res, next) => {
         return next()
     }
 }
-module.exports = verifytoken
+const verifytokenProfessor = (req, res, next) => {
+    const token = req.cookies.authtoken || ''
+
+    if (token === '') {
+        return next()
+    }
+    try {
+        const decoded = jwt.verify(token, secret)
+        if (!decoded) {
+            return next()
+        }
+        console.log(decoded.Professor_Id + ' dsafasdf asdfsdaf')
+        req.Professor_Id = decoded.Professor_Id;
+        next()
+    } catch (error) {
+        console.log(error)
+        return next()
+    }
+}
+
+
+module.exports = {
+    verifytokenStudent,
+    verifytokenProfessor
+
+}

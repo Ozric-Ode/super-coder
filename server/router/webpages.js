@@ -3,7 +3,7 @@ const path = require('path')
 const webpagesRouter = new express.Router()
 const verifytoken = require('../Security/verifytoken-middleware.js')
 
-webpagesRouter.get('/', verifytoken, (req, res) => {
+webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
     // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
@@ -14,7 +14,7 @@ webpagesRouter.get('/ide', (req, res) => {
 
     res.sendFile('ide.html', { root: path.join(__dirname, '../../Webpages') })
 })
-webpagesRouter.get('/login', verifytoken, (req, res) => {
+webpagesRouter.get('/login', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id) {
         return res.redirect('/profile')
     }
@@ -23,14 +23,14 @@ webpagesRouter.get('/login', verifytoken, (req, res) => {
 
     res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
 })
-webpagesRouter.get('/register', verifytoken, (req, res) => {
+webpagesRouter.get('/register', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
 
     res.sendFile('register.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
-webpagesRouter.get('/profile', verifytoken, (req, res) => {
+webpagesRouter.get('/profile', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.sendFile('profile.html', { root: path.join(__dirname, '../../Webpages') })
 
@@ -48,5 +48,18 @@ webpagesRouter.get('/readblog',(req,res)=>{
     res.sendFile('readblog.html',{root:path.join(__dirname,'../../Webpages')})
 })
 
+webpagesRouter.get('/login/professor', verifytoken.verifytokenProfessor, (req, res) => {
+    if (req.Professor_Id) {
+        return res.redirect('/profile/professor')
+    }
+    
+    res.sendFile('professorLogin.html', { root: path.join(__dirname, '../../Webpages') })
+})
+webpagesRouter.get('/profile/professor', verifytoken.verifytokenStudent, (req, res) => {
+    // if (req.Professor_Id)
+        return res.sendFile('professorProfile.html', { root: path.join(__dirname, '../../Webpages') })
 
+
+    // res.redirect('/login/professor')
+})
 module.exports = webpagesRouter

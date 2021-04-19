@@ -1,9 +1,7 @@
-var mysql = require('mysql');
 const express = require('express')
 const signupRouter = new express.Router()
 const bcrypt = require('bcrypt')
 const generateAuthToken = require('../Security/jwt');
-const jwt = require('jsonwebtoken');
 const verifytoken = require('../Security/verifytoken-middleware');
 const dbFunction=require('../database/connectToDb.js')
 
@@ -77,7 +75,46 @@ signupRouter.post('/login', async (req, res) => {
   }
 })
 
-signupRouter.get('/logout', verifytoken, (req, res) => {
+signupRouter.post('/login/professor', async (req, res) => {
+  try {
+    console.log(req.body.Professor_Id)
+    const pool=await dbFunction.connectToDb();
+    const query='Select * from professor where Professor_Id = ?';
+    const studentRes=await pool.query(query,[req.body.Professor_Id]);
+    await dbFunction.disconnectFromDb(pool);
+    var errorobj={errormsg:''};
+    if(studentRes[0].length===0)
+    {
+     errorobj.errormsg='User Not Found';
+     return res.status(400).send(JSON.stringify(errorobj));
+    }
+    const verifyPassword = await bcrypt.compare(req.body.password, studentRes[0][0].Password)
+    if (!verifyPassword) {
+      errorobj.errormsg='Wrong Password';
+     return res.status(400).send(JSON.stringify(errorobj));
+    }
+    const token = await generateAuthToken(req.body.Student_Id)
+    res.cookie('authtoken', token, {
+      httpOnly: true,
+      maxAge: 1000000,
+    })
+    const obj = {
+      ...studentRes[0][0],
+      token
+    }
+    return res.status(200).send(JSON.stringify(obj));
+  } catch (error) {
+    console.log(error)
+    const errorobj = {
+      errormsg: error,
+    }
+    res.status(400).send(JSON.stringify(errorobj))
+  }
+})
+
+
+
+signupRouter.get('/logout', verifytoken.verifytokenStudent, (req, res) => {
   if (req.Student_Id) {
     res.cookie('authtoken', '', {
       httpOnly: true,
