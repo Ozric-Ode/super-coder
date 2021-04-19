@@ -30,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "mysql-events": "0.0.11",
+    "mysql2": "^2.2.5",
     "path": "^0.12.7",
     "postman-request": "^2.88.1-postman.28",
     "ranked": "^0.4.0",

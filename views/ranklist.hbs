@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Super Coder</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
-    <link rel="stylesheet" href="fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="css/Article-Clean.css">
+    <link rel="stylesheet" href="../fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../css/Article-Clean.css">
 </head>
 
 <body>
@@ -29,13 +29,13 @@
         </nav>
         <div class="row">
             <div class="col" style="width: 900px;">
-                <h3 class="text-dark mb-4" style="font-size: 30px;width: 900px;margin-bottom: 10px;padding-left: 30px;"><strong>Contest Name-ABC</strong></h3>
+                <h3 class="text-dark mb-4" style="font-size: 30px;width: 900px;margin-bottom: 10px;padding-left: 30px;"><strong>Test Title: {{title}}</strong></h3>
             </div>
             <div class="col" style="text-align: right;">
-                <h3 class="text-dark mb-4" style="width: 400px;margin-bottom: 10px;font-size: 20px;"><strong>Contest Code- 123</strong></h3>
+                <h3 class="text-dark mb-4" style="width: 400px;margin-bottom: 10px;font-size: 20px;"><strong>Test Code- {{testCode}}</strong></h3>
             </div>
         </div>
-        <h3 class="text-dark mb-4" style="text-align: center;color: var(--success);font-size: 30px;background: var(--light);"><strong>Course NAme</strong></h3>
+        <h3 class="text-dark mb-4" style="text-align: center;color: var(--success);font-size: 30px;background: var(--light);"><strong>{{courseCode}}</strong></h3>
         <div class="row">
             <div class="col d-table-row">
                 <div class="card shadow" style="width: 1200px;">
@@ -48,42 +48,18 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 200px;">Rank</th>
-                                        <th style="width: 400px;">Name</th>
+                                        <th style="width: 400px;">Institute Id</th>
                                         <th>Score</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{#rankObj}}
                                     <tr>
-                                        <td class="text-center" style="width: 200px;">1</td>
-                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name</button></td>
-                                        <td></td>
+                                        <td class="text-center" style="width: 200px;">{{rank}}</td>
+                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">{{name}}</button></td>
+                                        <td>{{score}}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-center" style="width: 200px;">2<br></td>
-                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name<br></button></td>
-                                        <td><br></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center" style="width: 200px;">3<br></td>
-                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">name</button></td>
-                                        <td><br></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center" style="width: 200px;">4</td>
-                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name</button></td>
-                                        <td><br></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center" style="width: 200px;">5</td>
-                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name</button></td>
-                                        <td><br></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center" style="width: 200px;">6</td>
-                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name</button></td>
-                                        <td><br></td>
-                                    </tr>
-                                    <tr></tr>
+                                    {{/rankObj}}
                                 </tbody>
                                 <tfoot>
                                     <tr></tr>
@@ -114,12 +90,12 @@
             </nav>
         </div>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/chart.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../js/chart.min.js"></script>
+    <script src="../js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="../js/theme.js"></script>
 </body>
 
 </html>
