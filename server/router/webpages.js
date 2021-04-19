@@ -11,8 +11,10 @@ webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
 })
 
 webpagesRouter.get('/ide', (req, res) => {
+    //adding new ide screen. remove next line and uncomment the next text line
+    res.sendFile('ideScreen.html', { root: path.join(__dirname, '../../Webpages') })
 
-    res.sendFile('ide.html', { root: path.join(__dirname, '../../Webpages') })
+    // res.sendFile('ide.html', { root: path.join(__dirname, '../../Webpages') })
 })
 webpagesRouter.get('/login', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id) {
@@ -59,7 +61,24 @@ webpagesRouter.get('/profile/professor', verifytoken.verifytokenStudent, (req, r
     // if (req.Professor_Id)
         return res.sendFile('professorProfile.html', { root: path.join(__dirname, '../../Webpages') })
 
+// webpagesRouter.get('/ranklist', (req, res) => {
 
-    // res.redirect('/login/professor')
+//     res.sendFile('ranklist.html', { root: path.join(__dirname, '../../Webpages') })
+// })
+webpagesRouter.get('/ranklist', (req, res) => {
+
+    res.render("ranklist.hbs")
 })
+
+webpagesRouter.get('/question', (req, res) => {
+
+    res.sendFile('questionPage.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+webpagesRouter.get('/home', (req, res) => {
+
+    res.sendFile('homepage.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+
 module.exports = webpagesRouter

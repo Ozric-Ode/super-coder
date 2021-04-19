@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const path = require('path')
+const hbs=require('hbs')
 const app = express()
 const cookieParser = require('cookie-parser')
 const publicDirPath = path.join(__dirname, '../../public')
@@ -10,6 +11,11 @@ const signupRouter=require('../router/register_login.js')
 const createblogRouter=require('../router/create_blog_server.js')
 const blogsRouter = require('../router/readblog_server.js')
 const PORT = process.env.PORT
+
+const viewsPath=path.join(__dirname,"../views");
+
+app.set("view engine","hbs");
+
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.static(publicDirPath))

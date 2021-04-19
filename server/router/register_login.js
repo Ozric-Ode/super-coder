@@ -6,6 +6,30 @@ const verifytoken = require('../Security/verifytoken-middleware');
 const dbFunction=require('../database/connectToDb.js')
 
 
+const secret = process.env.JWT_KEY
+const insertStudent = (student) => {
+  return new Promise((resolve, reject) => {
+    const connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'monik',
+      database: 'supercoder',
+    });
+
+    connection.connect();
+    connection.query(
+      'Insert into student SET ?', student, (error, results) => {
+        if (error) {
+          console.log('asdfasfsdaf')
+          console.log(error)
+          reject(error)
+        }
+        resolve(results)
+      }
+    );
+    connection.end();
+  })
+}
 signupRouter.post('/register', async (req, res) => {
   try {
     const student = {
@@ -154,6 +178,3 @@ module.exports = signupRouter
 // });
 
 // connection.end();
-
-
-
