@@ -77,29 +77,29 @@ signupRouter.post('/login', async (req, res) => {
 
 signupRouter.post('/login/professor', async (req, res) => {
   try {
-    console.log(req.body.Professor_Id)
+    console.log(req.body.Email)
     const pool=await dbFunction.connectToDb();
-    const query='Select * from professor where Professor_Id = ?';
-    const studentRes=await pool.query(query,[req.body.Professor_Id]);
+    const query='Select * from professor where Email = ?';
+    const professorRes=await pool.query(query,[req.body.Email]);
     await dbFunction.disconnectFromDb(pool);
     var errorobj={errormsg:''};
-    if(studentRes[0].length===0)
+    if(professorRes[0].length===0)
     {
      errorobj.errormsg='User Not Found';
      return res.status(400).send(JSON.stringify(errorobj));
     }
-    const verifyPassword = await bcrypt.compare(req.body.password, studentRes[0][0].Password)
+    const verifyPassword = await bcrypt.compare(req.body.password, professorRes[0][0].Password)
     if (!verifyPassword) {
       errorobj.errormsg='Wrong Password';
      return res.status(400).send(JSON.stringify(errorobj));
     }
-    const token = await generateAuthToken(req.body.Student_Id)
+    const token = await generateAuthToken(professorRes[0][0].Professor_Id)
     res.cookie('authtoken', token, {
       httpOnly: true,
       maxAge: 1000000,
     })
     const obj = {
-      ...studentRes[0][0],
+      ...professorRes[0][0],
       token
     }
     return res.status(200).send(JSON.stringify(obj));
