@@ -64,7 +64,7 @@ webpagesRouter.get('/profile/professor', verifytoken.verifytokenStudent, (req, r
 // webpagesRouter.get('/ranklist', (req, res) => {
 
 //     res.sendFile('ranklist.html', { root: path.join(__dirname, '../../Webpages') })
-// })
+})
 webpagesRouter.get('/ranklist', (req, res) => {
 
     res.render("ranklist.hbs")
