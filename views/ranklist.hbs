@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Super Coder</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="css/Article-Clean.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+            <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                <h1>Super Coder</h1>
+                <div class="d-none d-sm-block topbar-divider"></div><button class="btn btn-primary" type="button" style="margin-left: 0px;background: var(--success);border-color: var(--success);color: var(--light);">IDE</button>
+                <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <div class="input-group-append"></div>
+                    </div>
+                </form><button class="btn btn-primary" type="button">Login</button><button class="btn btn-primary" type="button" style="color: var(--blue);background: var(--white);margin-left: 20px;">Sign Up</button>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col" style="width: 900px;">
+                <h3 class="text-dark mb-4" style="font-size: 30px;width: 900px;margin-bottom: 10px;padding-left: 30px;"><strong>Contest Name-ABC</strong></h3>
+            </div>
+            <div class="col" style="text-align: right;">
+                <h3 class="text-dark mb-4" style="width: 400px;margin-bottom: 10px;font-size: 20px;"><strong>Contest Code- 123</strong></h3>
+            </div>
+        </div>
+        <h3 class="text-dark mb-4" style="text-align: center;color: var(--success);font-size: 30px;background: var(--light);"><strong>Course NAme</strong></h3>
+        <div class="row">
+            <div class="col d-table-row">
+                <div class="card shadow" style="width: 1200px;">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 font-weight-bold">Ranklist</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive table mt-2" id="ranklist" role="grid" aria-describedby="dataTable_info">
+                            <table class="table my-0" id="ranklist">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 200px;">Rank</th>
+                                        <th style="width: 400px;">Name</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center" style="width: 200px;">1</td>
+                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name</button></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center" style="width: 200px;">2<br></td>
+                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name<br></button></td>
+                                        <td><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center" style="width: 200px;">3<br></td>
+                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">name</button></td>
+                                        <td><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center" style="width: 200px;">4</td>
+                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name</button></td>
+                                        <td><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center" style="width: 200px;">5</td>
+                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name</button></td>
+                                        <td><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center" style="width: 200px;">6</td>
+                                        <td style="width: 400px;"><button class="btn btn-primary" type="button" style="background: rgb(255,255,255);color: var(--gray);text-align: left;font-size: 18px;border-color: var(--white);border-bottom-color: var(--light);">Name</button></td>
+                                        <td><br></td>
+                                    </tr>
+                                    <tr></tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 200px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 align-self-center">
+            <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
+        </div>
+        <div class="col-md-6">
+            <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                <ul class="pagination">
+                    <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/chart.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>

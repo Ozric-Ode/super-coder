@@ -51,9 +51,13 @@ webpagesRouter.get('/readblog',(req,res)=>{
 })
 
 
+// webpagesRouter.get('/ranklist', (req, res) => {
+
+//     res.sendFile('ranklist.html', { root: path.join(__dirname, '../../Webpages') })
+// })
 webpagesRouter.get('/ranklist', (req, res) => {
 
-    res.sendFile('ranklistPage.html', { root: path.join(__dirname, '../../Webpages') })
+    res.render("ranklist.hbs")
 })
 
 webpagesRouter.get('/question', (req, res) => {

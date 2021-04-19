@@ -13,7 +13,7 @@ const insertStudent = (student) => {
     const connection = mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'password',
+      password: 'monik',
       database: 'supercoder',
     });
 
