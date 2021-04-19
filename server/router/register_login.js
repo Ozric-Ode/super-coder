@@ -1,10 +1,9 @@
-var mysql = require('mysql');
 const express = require('express')
 const signupRouter = new express.Router()
 const bcrypt = require('bcrypt')
 const generateAuthToken = require('../Security/jwt');
-const jwt = require('jsonwebtoken');
 const verifytoken = require('../Security/verifytoken-middleware');
+const dbFunction=require('../database/connectToDb.js')
 
 
 const secret = process.env.JWT_KEY
@@ -37,29 +36,25 @@ signupRouter.post('/register', async (req, res) => {
       ...req.body
     }
     student.password = await bcrypt.hash(student.password, 8)
-    console.log(student)
-
-    insertStudent(student).then(async (student1) => {
-
-      const token = await generateAuthToken(student.Student_Id)
-      res.cookie('authtoken', token, {
-        httpOnly: true,
-        maxAge: 100000000,
-      })
-      res.status(200).send()
-    }).catch((error) => {
-      console.log(error)
-      if(error.sqlMessage.includes('PRIMARY'))
+    const pool=await dbFunction.connectToDb();
+    const query='SELECT Student_Id FROM student where Student_Id = ?';
+    const studentRes=await pool.query(query,[student.Student_Id]);
+      if(!!studentRes[0][0])
       {
         const error={
           msg:'Student with the Student ID Already Exists'
         }
       return res.status(400).send(JSON.stringify(error))
       }
-    })
-
-
-
+    const [rows,fields]=await pool.query('Insert into student SET ?', [student]);
+    console.log(rows)
+    await dbFunction.disconnectFromDb(pool);
+    const token = await generateAuthToken(student.Student_Id)
+      res.cookie('authtoken', token, {
+        httpOnly: true,
+        maxAge: 100000000,
+      })
+      res.status(200).send()
   }
   catch (error) {
     console.log(error)
@@ -67,61 +62,34 @@ signupRouter.post('/register', async (req, res) => {
   }
 })
 
-const findUserAndVerifyCredentials = (Student_Id, password) => {
-  console.log(Student_Id)
-  return new Promise((resolve, reject) => {
-    const connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: 'password',
-      database: 'supercoder',
-    });
-    connection.connect();
-    connection.query(
-      'Select * from student where Student_id = ?', [Student_Id], async (error, results) => {
-        console.log(results)
-        if (results.length === 0) {
-          return reject('Student Not Found')
-        }
-        const verifyPassword = await bcrypt.compare(password, results[0].Password)
-        if (!verifyPassword) {
-          return reject('Wrong Password')
-        }
-        delete results[0].Password
-        resolve(results[0])
-      })
-    connection.end()
-  })
-}
-
-
-
 signupRouter.post('/login', async (req, res) => {
   try {
     console.log(req.body.Student_Id)
-    findUserAndVerifyCredentials(req.body.Student_Id, req.body.password).then(async (student) => {
-      console.log(student)
-      const token = await generateAuthToken(req.body.Student_Id)
-      console.log(token)
-
-      res.cookie('authtoken', token, {
-        httpOnly: true,
-        maxAge: 1000000,
-      })
-      const obj = {
-        ...student,
-        token
-      }
-      return res.status(200).send(JSON.stringify(obj))
-      // res.redirect('/login').send(JSON.stringify(obj))
-    }).catch((error) => {
-      console.log(error)
-      const errorobj = {
-        errormsg: error,
-      }
-      return res.status(400).send(JSON.stringify(errorobj))
+    const pool=await dbFunction.connectToDb();
+    const query='Select * from student where Student_id = ?';
+    const studentRes=await pool.query(query,[req.body.Student_Id]);
+    await dbFunction.disconnectFromDb(pool);
+    var errorobj={errormsg:''};
+    if(studentRes[0].length===0)
+    {
+     errorobj.errormsg='Student Not Found';
+     return res.status(400).send(JSON.stringify(errorobj));
+    }
+    const verifyPassword = await bcrypt.compare(req.body.password, studentRes[0][0].Password)
+    if (!verifyPassword) {
+      errorobj.errormsg='Wrong Password';
+     return res.status(400).send(JSON.stringify(errorobj));
+    }
+    const token = await generateAuthToken(req.body.Student_Id)
+    res.cookie('authtoken', token, {
+      httpOnly: true,
+      maxAge: 1000000,
     })
-
+    const obj = {
+      ...studentRes[0][0],
+      token
+    }
+    return res.status(200).send(JSON.stringify(obj));
   } catch (error) {
     console.log(error)
     const errorobj = {
@@ -130,7 +98,47 @@ signupRouter.post('/login', async (req, res) => {
     res.status(400).send(JSON.stringify(errorobj))
   }
 })
-signupRouter.get('/logout', verifytoken, (req, res) => {
+
+signupRouter.post('/login/professor', async (req, res) => {
+  try {
+    console.log(req.body.Professor_Id)
+    const pool=await dbFunction.connectToDb();
+    const query='Select * from professor where Professor_Id = ?';
+    const studentRes=await pool.query(query,[req.body.Professor_Id]);
+    await dbFunction.disconnectFromDb(pool);
+    var errorobj={errormsg:''};
+    if(studentRes[0].length===0)
+    {
+     errorobj.errormsg='User Not Found';
+     return res.status(400).send(JSON.stringify(errorobj));
+    }
+    const verifyPassword = await bcrypt.compare(req.body.password, studentRes[0][0].Password)
+    if (!verifyPassword) {
+      errorobj.errormsg='Wrong Password';
+     return res.status(400).send(JSON.stringify(errorobj));
+    }
+    const token = await generateAuthToken(req.body.Student_Id)
+    res.cookie('authtoken', token, {
+      httpOnly: true,
+      maxAge: 1000000,
+    })
+    const obj = {
+      ...studentRes[0][0],
+      token
+    }
+    return res.status(200).send(JSON.stringify(obj));
+  } catch (error) {
+    console.log(error)
+    const errorobj = {
+      errormsg: error,
+    }
+    res.status(400).send(JSON.stringify(errorobj))
+  }
+})
+
+
+
+signupRouter.get('/logout', verifytoken.verifytokenStudent, (req, res) => {
   if (req.Student_Id) {
     res.cookie('authtoken', '', {
       httpOnly: true,
@@ -138,7 +146,6 @@ signupRouter.get('/logout', verifytoken, (req, res) => {
     })
     return res.redirect('/login')
   }
-
   res.redirect('/login')
 })
 

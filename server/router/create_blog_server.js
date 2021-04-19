@@ -3,8 +3,7 @@ const express = require('express');
 const { resolve } = require('path');
 const { nextTick } = require('process');
 const createblogRouter = new express.Router();
-
-
+const dbFunction=require('../database/connectToDb.js')
 class Blog {
 
     constructor(
@@ -38,13 +37,7 @@ createblogRouter.post('/addblog', async(req, res) => {
         // );
         ob=req.body,
         console.log(ob);
-        const connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'password',
-            database: 'supercoder',
-        });
-        connection.connect();
+       
         // async function forOf(){
         //     result.push( await
        //################################################
@@ -59,7 +52,18 @@ createblogRouter.post('/addblog', async(req, res) => {
 
 //         },);
        // result.push(await  );
-        
+       const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'password',
+        database: 'supercoder',
+    });
+    connection.connect();
+        // const pool=await dbFunction.connectToDb();
+        // const query='Insert into blog SET ?';
+        // const insertRes=await pool.query(query,[ob]);
+        // console.log(insertRes);
+        // await dbFunction.disconnectFromDb(pool);
          connection.query(
             'Insert into blog SET ?', ob, async(error, results) => {
                 if (error) {

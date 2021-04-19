@@ -97,14 +97,14 @@ if(moreblog==1)
     console.log(response.row[0]);
    
   //  var x="http://localhost:3300/readblog/"+response.row[0].Blog_id;
-     var x="http://localhost:3300/readblog/"+response.row[0].Blog_id;
-    url_redirect(x);
+    //  var x="http://localhost:3300/readblog/"+response.row[0].Blog_id;
+    // url_redirect(x);
 //location.href=x;
 
 //window.open('http://www.google.com');
-console.log(x);
+// console.log(x);
 //document.write('heyyyyy');
-    // setd(response.row[0]);
+    setd(response.row[0]);
     
 })
 localStorage.setItem('oft',ob.oft);
