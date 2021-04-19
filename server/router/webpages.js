@@ -110,6 +110,24 @@ webpagesRouter.get('/question', (req, res) => {
     res.sendFile('questionPage.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
+
+webpagesRouter.get('/createQues', (req, res) => {
+
+    res.sendFile('createQues.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+
+webpagesRouter.get('/createContest', (req, res) => {
+
+    res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+
+webpagesRouter.get('/contests', (req, res) => {
+
+    res.sendFile('contestPages.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
 webpagesRouter.get('/home', (req, res) => {
 
     res.sendFile('homepage.html', { root: path.join(__dirname, '../../Webpages') })
