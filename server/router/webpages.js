@@ -2,7 +2,8 @@ const express = require('express')
 const path = require('path')
 const webpagesRouter = new express.Router()
 const verifytoken = require('../Security/verifytoken-middleware.js')
-
+const getRankListData=require('../utils/ranklist.js')
+const dbFunction = require('../database/connectToDb.js')
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
@@ -65,9 +66,73 @@ webpagesRouter.get('/profile/professor', verifytoken.verifytokenStudent, (req, r
 
 //     res.sendFile('ranklist.html', { root: path.join(__dirname, '../../Webpages') })
 })
-webpagesRouter.get('/ranklist', (req, res) => {
+// var mysqlEventWatcher = new MySQLEvents({
+//   host: "localhost",
+//   user: "root",
+//   password: "monik",
+// });
+// mysqlEventWatcher.add(
+//   "test.fortest",
+//   function (oldRow, newROw, event) {
+//     //   if(oldRow==null){
+//     // 	  console.log("old row null")
+//     // 	  var reslt1=oldRow;
+//     // 	  var reslt2=newROw;
+//     // 	  console.log(event);
+//     // 	  console.log(oldRow);
+//     // 	  console.log(newROw);
+//     // 	  console.log(newROw["fields"]["name"]);
+//     // 	  console.log(newROw["fields"]["id"]);
+//     // 	}
+//     // 	if(newROw==null){
+//     // 		console.log("new row deleted");
+//     // 	}
 
-    res.render("ranklist.hbs")
+//     // 	if (oldRow !== null && newROw !== null) {
+//     // 		var reslt1=oldRow;
+//     // 	  var reslt2=newROw;
+//     // 	  console.log(oldRow);
+//     // 	  console.log(newROw["changedColumns"]);
+//     // 	console.log("updation")
+//     //   }
+//     getData();
+//   },
+//   "testing"
+webpagesRouter.get('/ranklist/:testId',async  (req, res) => {
+    const Test_Id=req.params.testId;
+    console.log(Test_Id)
+    const ranklist=await getRankListData(Test_Id);
+    // const rank=[...ranklist]
+    // console.log(rank)
+    let rank=[];
+    let score=[];
+    let name=[];
+    let rankObj=[]
+    ranklist.forEach((rankItem)=>{
+        const rankObjItem={
+        rank:(rankItem.rank),
+        score:(rankItem.item.Score),
+        name:(rankItem.item.Student_Id),
+        }
+        rankObj.push(rankObjItem)
+    })
+    // console.log(rank)
+    // console.log(score)
+    // console.log(name)
+   
+    const pool = await dbFunction.connectToDb();
+    let query = "SELECT * FROM programming_test WHERE Test_Id = ?";
+    const testRes = await pool.query(query,[Test_Id]);
+    await dbFunction.disconnectFromDb(pool);
+    const title=testRes[0][0].Title;
+    const testCode=testRes[0][0].Test_Id;
+    const courseCode=testRes[0][0].Course_Code;
+    res.render("ranklist.hbs",{
+        rankObj,
+        title,
+        testCode,
+        courseCode
+    })
 })
 
 webpagesRouter.get('/question', (req, res) => {
