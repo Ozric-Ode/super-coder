@@ -1,6 +1,4 @@
 const mysql=require('mysql2/promise');
-
-
 module.exports={
     async connectToDb(){
         const pool= await mysql.createPool({

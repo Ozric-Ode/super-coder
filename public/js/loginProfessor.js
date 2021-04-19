@@ -5,19 +5,18 @@ const $signinPassword = document.querySelector('#password')
 $signin.addEventListener('click', async (e) => {
     e.preventDefault();
     const credentials = {
-        Student_Id: $signinUsername.value,
+        Email: $signinUsername.value,
         password: $signinPassword.value
     }
-    console.log('credentials ' + credentials.Student_Id + ' ' + credentials.password)
+    console.log('credentials ' + credentials.Email + ' ' + credentials.password)
     try {
-        const response = await fetch('/login', {
+        const response = await fetch('/login/professor', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             redirect: 'follow',
             body: JSON.stringify(credentials)
-
         })
         const data = await response.json()
         console.log(data)
@@ -26,9 +25,10 @@ $signin.addEventListener('click', async (e) => {
         }
         // console.log(response.status)
         // window.alert('congratulations for logging in')
-        window.localStorage.setItem('Student_Id', data.Student_Id);
-        window.localStorage.setItem('student', JSON.stringify(data));
-        window.location.href = '/profile';
+        delete data.password;
+        window.localStorage.setItem('Professor_Id', data.Professor_Id);
+        window.localStorage.setItem('professor', JSON.stringify(data));
+        window.location.href = '/profile/professor';
     } catch (error) {
         alert(error.message)
         console.error(error)
