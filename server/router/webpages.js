@@ -2,12 +2,13 @@ const express = require('express')
 const path = require('path')
 const webpagesRouter = new express.Router()
 const verifytoken = require('../Security/verifytoken-middleware.js')
-const getRankListData=require('../utils/ranklist.js')
+const getRankListData = require('../utils/ranklist.js')
+const getContestData = require('../utils/contestpage.js')
 const dbFunction = require('../database/connectToDb.js')
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
-    // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
+            // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
     res.redirect('/login')
 })
 
@@ -43,50 +44,50 @@ webpagesRouter.get('/profile', verifytoken.verifytokenStudent, (req, res) => {
 webpagesRouter.get('/blogs', (req, res) => {
     res.sendFile('blog.html', { root: path.join(__dirname, '../../Webpages') })
 })
-webpagesRouter.get('/createblog',(req,res)=>{
-    res.sendFile('createblog.html',{root:path.join(__dirname,'../../Webpages')})
+webpagesRouter.get('/createblog', (req, res) => {
+    res.sendFile('createblog.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
-webpagesRouter.get('/readblog',(req,res)=>{
-    res.sendFile('readblog.html',{root:path.join(__dirname,'../../Webpages')})
+webpagesRouter.get('/readblog', (req, res) => {
+    res.sendFile('readblog.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
 webpagesRouter.get('/login/professor', verifytoken.verifytokenProfessor, (req, res) => {
     if (req.Professor_Id) {
         return res.redirect('/profile/professor')
     }
-    
+
     res.sendFile('professorLogin.html', { root: path.join(__dirname, '../../Webpages') })
 })
 webpagesRouter.get('/profile/professor', verifytoken.verifytokenStudent, (req, res) => {
-    // if (req.Professor_Id)
+        // if (req.Professor_Id)
         return res.sendFile('professorProfile.html', { root: path.join(__dirname, '../../Webpages') })
 
-// webpagesRouter.get('/ranklist', (req, res) => {
+        // webpagesRouter.get('/ranklist', (req, res) => {
 
-//     res.sendFile('ranklist.html', { root: path.join(__dirname, '../../Webpages') })
-})
-// var mysqlEventWatcher = new MySQLEvents({
-//   host: "localhost",
-//   user: "root",
-//   password: "monik",
-// });
-// mysqlEventWatcher.add(
-//   "test.fortest",
-//   function (oldRow, newROw, event) {
-//     //   if(oldRow==null){
-//     // 	  console.log("old row null")
-//     // 	  var reslt1=oldRow;
-//     // 	  var reslt2=newROw;
-//     // 	  console.log(event);
-//     // 	  console.log(oldRow);
-//     // 	  console.log(newROw);
-//     // 	  console.log(newROw["fields"]["name"]);
-//     // 	  console.log(newROw["fields"]["id"]);
-//     // 	}
-//     // 	if(newROw==null){
-//     // 		console.log("new row deleted");
-//     // 	}
+        //     res.sendFile('ranklist.html', { root: path.join(__dirname, '../../Webpages') })
+    })
+    // var mysqlEventWatcher = new MySQLEvents({
+    //   host: "localhost",
+    //   user: "root",
+    //   password: "monik",
+    // });
+    // mysqlEventWatcher.add(
+    //   "test.fortest",
+    //   function (oldRow, newROw, event) {
+    //     //   if(oldRow==null){
+    //     // 	  console.log("old row null")
+    //     // 	  var reslt1=oldRow;
+    //     // 	  var reslt2=newROw;
+    //     // 	  console.log(event);
+    //     // 	  console.log(oldRow);
+    //     // 	  console.log(newROw);
+    //     // 	  console.log(newROw["fields"]["name"]);
+    //     // 	  console.log(newROw["fields"]["id"]);
+    //     // 	}
+    //     // 	if(newROw==null){
+    //     // 		console.log("new row deleted");
+    //     // 	}
 
 //     // 	if (oldRow !== null && newROw !== null) {
 //     // 		var reslt1=oldRow;
@@ -98,41 +99,71 @@ webpagesRouter.get('/profile/professor', verifytoken.verifytokenStudent, (req, r
 //     getData();
 //   },
 //   "testing"
-webpagesRouter.get('/ranklist/:testId',async  (req, res) => {
-    const Test_Id=req.params.testId;
+webpagesRouter.get('/ranklist/:testId', async(req, res) => {
+    const Test_Id = req.params.testId;
     console.log(Test_Id)
-    const ranklist=await getRankListData(Test_Id);
+    const ranklist = await getRankListData(Test_Id);
     // const rank=[...ranklist]
     // console.log(rank)
-    let rank=[];
-    let score=[];
-    let name=[];
-    let rankObj=[]
-    ranklist.forEach((rankItem)=>{
-        const rankObjItem={
-        rank:(rankItem.rank),
-        score:(rankItem.item.Score),
-        name:(rankItem.item.Student_Id),
-        }
-        rankObj.push(rankObjItem)
-    })
-    // console.log(rank)
-    // console.log(score)
-    // console.log(name)
-   
+    let rank = [];
+    let score = [];
+    let name = [];
+    let rankObj = []
+    ranklist.forEach((rankItem) => {
+            const rankObjItem = {
+                rank: (rankItem.rank),
+                score: (rankItem.item.Score),
+                name: (rankItem.item.Student_Id),
+            }
+            rankObj.push(rankObjItem)
+        })
+        // console.log(rank)
+        // console.log(score)
+        // console.log(name)
+
     const pool = await dbFunction.connectToDb();
     let query = "SELECT * FROM programming_test WHERE Test_Id = ?";
-    const testRes = await pool.query(query,[Test_Id]);
+    const testRes = await pool.query(query, [Test_Id]);
     await dbFunction.disconnectFromDb(pool);
-    const title=testRes[0][0].Title;
-    const testCode=testRes[0][0].Test_Id;
-    const courseCode=testRes[0][0].Course_Code;
-    res.render("ranklist.hbs",{
+    const title = testRes[0][0].Title;
+    const testCode = testRes[0][0].Test_Id;
+    const courseCode = testRes[0][0].Course_Code;
+    res.render("ranklist.hbs", {
         rankObj,
         title,
         testCode,
         courseCode
     })
+})
+
+webpagesRouter.get('/contest/:testId', async(req, res) => {
+    const Test_Id = req.params.testId;
+    console.log(Test_Id)
+    const contestPage = await getContestData(Test_Id);
+    const Title = contestPage[0].Title;
+    const Course_Code = contestPage[0].Course_Code;
+    const Date = contestPage[0].Date;
+    const Start_Time = contestPage[0].Start_Time;
+    const End_Time = contestPage[0].End_Time;
+
+    let probObj = []
+
+    const pool = await dbFunction.connectToDb();
+    let query = "select * from programming_problem where Test_Id = ?";
+    const testProblemRes = await pool.query(query, [Test_Id]);
+    const problemList = testProblemRes[0];
+    console.log(problemList)
+    await dbFunction.disconnectFromDb(pool);
+
+    res.render("contestpage.hbs", {
+        Title,
+        Course_Code,
+        Date,
+        Start_Time,
+        End_Time,
+        problemList
+    })
+
 })
 
 webpagesRouter.get('/question', (req, res) => {
