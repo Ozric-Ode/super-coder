@@ -52,6 +52,10 @@ webpagesRouter.get('/readblog', (req, res) => {
     res.sendFile('readblog.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
+webpagesRouter.get('/createcourse',(req,res)=>{
+    res.sendFile('createCourse.html',{root:path.join(__dirname,'../../Webpages')})
+})
+
 webpagesRouter.get('/login/professor', verifytoken.verifytokenProfessor, (req, res) => {
     if (req.Professor_Id) {
         return res.redirect('/profile/professor')
@@ -169,6 +173,24 @@ webpagesRouter.get('/contest/:testId', async(req, res) => {
 webpagesRouter.get('/question', (req, res) => {
 
     res.sendFile('questionPage.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+
+webpagesRouter.get('/createQues', (req, res) => {
+
+    res.sendFile('createQues.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+
+webpagesRouter.get('/createContest', (req, res) => {
+
+    res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+
+webpagesRouter.get('/contests', (req, res) => {
+
+    res.sendFile('contestPages.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
 webpagesRouter.get('/home', (req, res) => {
