@@ -3,13 +3,13 @@ const path = require('path')
 const webpagesRouter = new express.Router()
 const verifytoken = require('../Security/verifytoken-middleware.js')
 const getRankListData = require('../utils/ranklist.js')
-const getContestData =require('../utils/contestpage.js')
+const getContestData = require('../utils/contestpage.js')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
-    // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
+            // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
     res.redirect('/login')
 })
 
@@ -67,47 +67,47 @@ webpagesRouter.get('/profile/professor', verifytoken.verifytokenStudent, (req, r
 
 })
 
-webpagesRouter.get('/ranklist/:testId', async (req, res) => {
+webpagesRouter.get('/ranklist/:testId', async(req, res) => {
     const Test_Id = req.params.testId;
     console.log(Test_Id)
     const ranklist = await getRankListData(Test_Id);
-        let rankObj = []
-        ranklist.forEach((rankItem) => {
-            const rankObjItem = {
-                rank: (rankItem.rank),
-                score: (rankItem.item.Score),
-                name: (rankItem.item.Student_Id),
-            }
-            rankObj.push(rankObjItem)
-        })
-        const pool = await dbFunction.connectToDb();
-        let query = "SELECT * FROM programming_test WHERE Test_Id = ?";
-        const testRes = await pool.query(query, [Test_Id]);
-        await dbFunction.disconnectFromDb(pool);
-       if(!testRes||!testRes[0]||!testRes[0][0])
+    let rankObj = []
+    ranklist.forEach((rankItem) => {
+        const rankObjItem = {
+            rank: (rankItem.rank),
+            score: (rankItem.item.Score),
+            name: (rankItem.item.Student_Id),
+        }
+        rankObj.push(rankObjItem)
+    })
+    const pool = await dbFunction.connectToDb();
+    let query = "SELECT * FROM programming_test WHERE Test_Id = ?";
+    const testRes = await pool.query(query, [Test_Id]);
+    await dbFunction.disconnectFromDb(pool);
+    if (!testRes || !testRes[0] || !testRes[0][0])
         return res.status(200).send('Test Not Found')
-        
-        const title = testRes[0][0].Title;
-        const testCode = testRes[0][0].Test_Id;
-        const courseCode = testRes[0][0].Course_Code;
-        res.render("ranklist.hbs", {
-            rankObj,
-            title,
-            testCode,
-            courseCode
-        })
-   
+
+    const title = testRes[0][0].Title;
+    const testCode = testRes[0][0].Test_Id;
+    const courseCode = testRes[0][0].Course_Code;
+    res.render("ranklist.hbs", {
+        rankObj,
+        title,
+        testCode,
+        courseCode
+    })
+
 })
 webpagesRouter.get('/contest/:testId', async(req, res) => {
     const Test_Id = req.params.testId;
     console.log(Test_Id)
-    // res.sendFile('contestpage.html', { root: path.join(__dirname, '../../Webpages') })
-    // res.render("contestpage.hbs")
+        // res.sendFile('contestpage.html', { root: path.join(__dirname, '../../Webpages') })
+        // res.render("contestpage.hbs")
 
     const contestPage = await getContestData(Test_Id);
     // if(!contestPage||!contestPage[0]||!contestPage[0][0])
     // return res.status(200).send('contest Not Found')
-    
+
 
     const Title = contestPage[0].Title;
     const Course_Code = contestPage[0].Course_Code;
@@ -116,7 +116,7 @@ webpagesRouter.get('/contest/:testId', async(req, res) => {
     const End_Time = contestPage[0].End_Time;
     console.log(Start_Time)
     console.log(End_Time)
-    
+
     let probObj = []
     const pool = await dbFunction.connectToDb();
     let query = "select * from programming_problem where Test_Id = ?";
@@ -124,7 +124,7 @@ webpagesRouter.get('/contest/:testId', async(req, res) => {
     const problemList = testProblemRes[0];
     console.log(problemList)
     await dbFunction.disconnectFromDb(pool);
-    res.render("contestpage.hbs",{
+    res.render("contestpage.hbs", {
         Title,
         Course_Code,
         Date,
@@ -132,12 +132,32 @@ webpagesRouter.get('/contest/:testId', async(req, res) => {
         End_Time,
         problemList
     })
-   
+
 
 })
+
+
 webpagesRouter.get('/question', (req, res) => {
 
     res.sendFile('questionPage.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+
+webpagesRouter.get('/createQues', (req, res) => {
+
+    res.sendFile('createQues.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+
+webpagesRouter.get('/createContest', (req, res) => {
+
+    res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
+})
+
+
+webpagesRouter.get('/contests', (req, res) => {
+
+    res.sendFile('contestPages.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
 webpagesRouter.get('/home', (req, res) => {
@@ -146,35 +166,36 @@ webpagesRouter.get('/home', (req, res) => {
 })
 
 
+
 module.exports = webpagesRouter
 
 
 
 
- // mysqlEventWatcher.add("supercoder.ranklist", async (oldRow, newROw, event) => {
-    //     const ranklist = await getRankListData(Test_Id);
-    //     let rankObj = []
-    //     ranklist.forEach((rankItem) => {
-    //         const rankObjItem = {
-    //             rank: (rankItem.rank),
-    //             score: (rankItem.item.Score),
-    //             name: (rankItem.item.Student_Id),
-    //         }
-    //         rankObj.push(rankObjItem)
-    //     })
-    //     const pool = await dbFunction.connectToDb();
-    //     let query = "SELECT * FROM programming_test WHERE Test_Id = ?";
-    //     const testRes = await pool.query(query, [Test_Id]);
-    //     await dbFunction.disconnectFromDb(pool);
-    //     if(!testRes||!testRes[0]||!testRes[0][0])
-    //     return res.status(200).send('Test Not Found')
-    //     const title = testRes[0][0].Title;
-    //     const testCode = testRes[0][0].Test_Id;
-    //     const courseCode = testRes[0][0].Course_Code;
-    //     res.render("ranklist.hbs", {
-    //         rankObj,
-    //         title,
-    //         testCode,
-    //         courseCode
-    //     })
-    // })
+// mysqlEventWatcher.add("supercoder.ranklist", async (oldRow, newROw, event) => {
+//     const ranklist = await getRankListData(Test_Id);
+//     let rankObj = []
+//     ranklist.forEach((rankItem) => {
+//         const rankObjItem = {
+//             rank: (rankItem.rank),
+//             score: (rankItem.item.Score),
+//             name: (rankItem.item.Student_Id),
+//         }
+//         rankObj.push(rankObjItem)
+//     })
+//     const pool = await dbFunction.connectToDb();
+//     let query = "SELECT * FROM programming_test WHERE Test_Id = ?";
+//     const testRes = await pool.query(query, [Test_Id]);
+//     await dbFunction.disconnectFromDb(pool);
+//     if(!testRes||!testRes[0]||!testRes[0][0])
+//     return res.status(200).send('Test Not Found')
+//     const title = testRes[0][0].Title;
+//     const testCode = testRes[0][0].Test_Id;
+//     const courseCode = testRes[0][0].Course_Code;
+//     res.render("ranklist.hbs", {
+//         rankObj,
+//         title,
+//         testCode,
+//         courseCode
+//     })
+// })
