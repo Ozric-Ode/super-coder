@@ -17,9 +17,9 @@
         <div class="masthead-content">
             <div class="container">
                 <h1 class="masthead-heading mb-0">{{Title}}</h1>
-                <h2 class="masthead-subheading mb-0">19th April 2020</h2>
+                <h2 class="masthead-subheading mb-0">{{Date}}</h2>
                 <h3 class="masthead-subheading mb-0">{{Course_Code}}</h3>
-                <h3 class="masthead-subheading mb-0">{{Start_Time}} - {{End_Time}}</h3><a class="btn btn-primary btn-xl rounded-pill mt-5" role="button" href="#">RANKLIST</a>
+                <h3 class="masthead-subheading mb-0">{{Start_Time}} - {{End_Time}}</h3><a class="btn btn-primary btn-xl rounded-pill mt-5" role="button" href="/ranklist/{{Test_Id}}">RANKLIST</a>
             </div>
         </div>
         <div class="bg-circle-1 bg-circle"></div>
@@ -45,7 +45,7 @@
                             <tbody>
                                 {{#problemList}}
                                 <tr>
-                                    <td>{{Problem_Id}}</td>
+                                    <td><a href="/problem/{{Problem_Id}}">{{Problem_Id}}</a></td>
                                     <td>{{Title}}</td>
                                     <td>100</td>
                                 </tr>
