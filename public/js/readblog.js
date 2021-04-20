@@ -37,7 +37,7 @@ const blogs= async(obj)=>{
         console.log(data.body);
       //  return data;
         const nww= await data.json();//chexck whether json is req or not
-   console.log(nww);
+  // console.log(nww);
     return nww;
     }
     catch(e){
@@ -76,9 +76,12 @@ const ob={
     blogs(ob).then(response=>{
     console.log("eknumber");
 
-    console.log(response.row[0]);
-     setd(response.row[0]);
+   // console.log(response.row[0]);
+   console.log(response.row[0][0]);
+     setd(response.row[0][0]);
     
+}).catch(error=>{
+    console.log("asdddddd"+error);
 })
 localStorage.setItem('oft',ob.oft);
 localStorage.setItem('moreblog',1);
@@ -94,7 +97,7 @@ if(moreblog==1)
    
     blogs(ob).then(response=>{
     console.log("eknumber");
-    console.log(response.row[0]);
+   // console.log(response.row[0].Blog_id);
    
   //  var x="http://localhost:3300/readblog/"+response.row[0].Blog_id;
     //  var x="http://localhost:3300/readblog/"+response.row[0].Blog_id;
@@ -104,7 +107,7 @@ if(moreblog==1)
 //window.open('http://www.google.com');
 // console.log(x);
 //document.write('heyyyyy');
-    setd(response.row[0]);
+  setd(response.row[0][0]);
     
 })
 localStorage.setItem('oft',ob.oft);
@@ -121,8 +124,8 @@ if(ob.oft-1>parseInt(0))
     ob.oft=ofst-1;
     blogs(ob).then(response=>{
     console.log("eknumber");
-    console.log(response.row[0]);
-     setd(response.row[0]);
+    console.log(response.row[0][0]);
+      setd(response.row[0][0]);
     
 })
 localStorage.setItem('oft',ob.oft);
