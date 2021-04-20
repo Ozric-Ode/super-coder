@@ -3,6 +3,7 @@ const path = require('path')
 const webpagesRouter = new express.Router()
 const verifytoken = require('../Security/verifytoken-middleware.js')
 const getRankListData = require('../utils/ranklist.js')
+const getContestData =require('../utils/contestpage.js')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
@@ -100,23 +101,30 @@ webpagesRouter.get('/ranklist/:testId', async (req, res) => {
 webpagesRouter.get('/contest/:testId', async(req, res) => {
     const Test_Id = req.params.testId;
     console.log(Test_Id)
+    // res.sendFile('contestpage.html', { root: path.join(__dirname, '../../Webpages') })
+    // res.render("contestpage.hbs")
+
     const contestPage = await getContestData(Test_Id);
+    // if(!contestPage||!contestPage[0]||!contestPage[0][0])
+    // return res.status(200).send('contest Not Found')
+    
+
     const Title = contestPage[0].Title;
     const Course_Code = contestPage[0].Course_Code;
     const Date = contestPage[0].Date;
     const Start_Time = contestPage[0].Start_Time;
     const End_Time = contestPage[0].End_Time;
-
+    console.log(Start_Time)
+    console.log(End_Time)
+    
     let probObj = []
-
     const pool = await dbFunction.connectToDb();
     let query = "select * from programming_problem where Test_Id = ?";
     const testProblemRes = await pool.query(query, [Test_Id]);
     const problemList = testProblemRes[0];
     console.log(problemList)
     await dbFunction.disconnectFromDb(pool);
-
-    res.render("contestpage.hbs", {
+    res.render("contestpage.hbs",{
         Title,
         Course_Code,
         Date,
@@ -124,6 +132,7 @@ webpagesRouter.get('/contest/:testId', async(req, res) => {
         End_Time,
         problemList
     })
+   
 
 })
 webpagesRouter.get('/question', (req, res) => {
