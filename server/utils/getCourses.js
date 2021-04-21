@@ -3,7 +3,7 @@ const dbFunction = require('../database/connectToDb.js')
 const getCourses = async() => {
     try {
         const pool = await dbFunction.connectToDb();
-        let query = "SELECT Course_Code FROM course";
+        let query = "SELECT * FROM course";
         const courseResponse = await pool.query(query);
         console.log(courseResponse[0]);
         const course = courseResponse[0];

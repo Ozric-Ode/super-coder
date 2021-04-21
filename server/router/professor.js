@@ -28,7 +28,7 @@ professorRouter.post('/checktestid', async (req, res) => {
         const errorobj = {
             errormsg: error,
           }
-          res.status(400).send(JSON.stringify(errorobj))
+          return res.status(400).send(JSON.stringify(errorobj))
     }
 })
 professorRouter.post('/addprogrammingtest', async (req, res) => {
@@ -55,6 +55,7 @@ professorRouter.post('/addprogrammingtest', async (req, res) => {
         const obj={
             msg:'Congratulations Test Saved Succesfully'
         }
+        await dbFunction.disconnectFromDb(pool);
         return res.status(200).send(JSON.stringify(obj));
 
     } catch (error) {
@@ -62,6 +63,31 @@ professorRouter.post('/addprogrammingtest', async (req, res) => {
             errormsg: error,
           }
           res.status(400).send(JSON.stringify(errorobj))
+    }
+})
+professorRouter.post('/addcourse', async (req, res) => {
+    try {
+        const course={
+            ...req.body
+        }
+        console.log(course);
+        var errorobj={errormsg:''};
+        const pool=await dbFunction.connectToDb();
+        const query1='INSERT INTO course SET ?';
+        const insertTestRes=await pool.query(query1,[course]);
+        console.log(insertTestRes);
+       
+        const obj={
+            msg:'Congratulations Course Saved Succesfully'
+        }
+        await dbFunction.disconnectFromDb(pool);
+        return res.status(200).send(JSON.stringify(obj));
+
+    } catch (error) {
+        const errorobj = {
+            errormsg: error,
+          }
+          return res.status(400).send(JSON.stringify(errorobj))
     }
 })
 

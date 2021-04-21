@@ -6,12 +6,12 @@ const getRankListData = require('../utils/ranklist.js')
 const getContestData = require('../utils/contestpage.js')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
-const getCourses=require('../utils/getCourses')
+const getCourses = require('../utils/getCourses')
 const getProblems = require('../utils/fetchProblems.js')
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
-            // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
+    // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
     res.redirect('/login')
 })
 
@@ -69,7 +69,7 @@ webpagesRouter.get('/profile/professor', verifytoken.verifytokenStudent, (req, r
 
 })
 
-webpagesRouter.get('/ranklist/:testId', async(req, res) => {
+webpagesRouter.get('/ranklist/:testId', async (req, res) => {
     const Test_Id = req.params.testId;
     console.log(Test_Id)
     const ranklist = await getRankListData(Test_Id);
@@ -100,11 +100,11 @@ webpagesRouter.get('/ranklist/:testId', async(req, res) => {
     })
 
 })
-webpagesRouter.get('/contest/:testId', async(req, res) => {
+webpagesRouter.get('/contest/:testId', async (req, res) => {
     const Test_Id = req.params.testId;
     console.log(Test_Id)
-        // res.sendFile('contestpage.html', { root: path.join(__dirname, '../../Webpages') })
-        // res.render("contestpage.hbs")
+    // res.sendFile('contestpage.html', { root: path.join(__dirname, '../../Webpages') })
+    // res.render("contestpage.hbs")
 
     const contestPage = await getContestData(Test_Id);
     // if(!contestPage||!contestPage[0]||!contestPage[0][0])
@@ -126,7 +126,7 @@ webpagesRouter.get('/contest/:testId', async(req, res) => {
     const problemList = testProblemRes[0];
     console.log(problemList)
     await dbFunction.disconnectFromDb(pool);
-    res.render("contestpage.hbs", {
+    res.render("problemPage.hbs", {
         Title,
         Course_Code,
         Date,
@@ -139,35 +139,45 @@ webpagesRouter.get('/contest/:testId', async(req, res) => {
 })
 
 
-webpagesRouter.get('/question', (req, res) => {
+webpagesRouter.get('/problems', (req, res) => {
 
-    res.sendFile('questionPage.html', { root: path.join(__dirname, '../../Webpages') })
+    res.sendFile('problemPage.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
 
-webpagesRouter.get('/createques', (req, res) => {
+webpagesRouter.get('/addProblem', (req, res) => {
 
-    res.sendFile('createQues.html', { root: path.join(__dirname, '../../Webpages') })
+    res.sendFile('addProblem.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
 
-webpagesRouter.get('/createtest',verifytoken.verifytokenProfessor, async (req, res) => {
-        console.log(req.Professor_Id)
-        if(!req.Professor_Id)
-        {
-            res.redirect('/login/professor')
-        }
+webpagesRouter.get('/addTest', verifytoken.verifytokenProfessor, async (req, res) => {
+    console.log(req.Professor_Id)
+    if (!req.Professor_Id) {
+        res.redirect('/login/professor')
+    }
     // res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
-        const problems=await getProblems(req.Professor_Id);
-        const courses= await getCourses();
-        res.render('createContest.hbs',{
-            problems,
-            courses,
-        })
+    const problems = await getProblems(req.Professor_Id);
+    const courses = await getCourses();
+    res.render('addProblem.hbs', {
+        problems,
+        courses,
+    })
+})
+
+webpagesRouter.get('/addcourse', verifytoken.verifytokenProfessor,async (req, res) => {
+    if (!req.Professor_Id) {
+        res.redirect('/login/professor')
+    }
+    const courses = await getCourses();
+    res.render('addCourse.hbs',{
+        courses
+    });
 })
 
 
-webpagesRouter.get('/contests', (req, res) => {
+
+webpagesRouter.get('/problems', (req, res) => {
 
     res.sendFile('contestPages.html', { root: path.join(__dirname, '../../Webpages') })
 })
@@ -176,8 +186,6 @@ webpagesRouter.get('/home', (req, res) => {
 
     res.sendFile('homepage.html', { root: path.join(__dirname, '../../Webpages') })
 })
-
-
 
 module.exports = webpagesRouter
 
