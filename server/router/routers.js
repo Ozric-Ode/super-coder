@@ -1,10 +1,10 @@
 const express = require('express')
 const getToken = require('../utils/sendcode')
 const workOnToken = require('../utils/recieveSolution')
-var mysql = require('mysql');
 const submitRouter = new express.Router()
 const dbFunction=require('../database/connectToDb.js')
 submitRouter.post('/submit', async (req, res) => {
+
     try {
         const obj = {
             code: req.body.code,

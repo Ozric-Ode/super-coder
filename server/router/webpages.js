@@ -6,6 +6,8 @@ const getRankListData = require('../utils/ranklist.js')
 const getContestData = require('../utils/contestpage.js')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
+const getCourses=require('../utils/getCourses')
+const getProblems = require('../utils/fetchProblems.js')
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
@@ -143,15 +145,25 @@ webpagesRouter.get('/question', (req, res) => {
 })
 
 
-webpagesRouter.get('/createQues', (req, res) => {
+webpagesRouter.get('/createques', (req, res) => {
 
     res.sendFile('createQues.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
 
-webpagesRouter.get('/createContest', (req, res) => {
-
-    res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
+webpagesRouter.get('/createtest',verifytoken.verifytokenProfessor, async (req, res) => {
+        console.log(req.Professor_Id)
+        if(!req.Professor_Id)
+        {
+            res.redirect('/login/professor')
+        }
+    // res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
+        const problems=await getProblems(req.Professor_Id);
+        const courses= await getCourses();
+        res.render('createContest.hbs',{
+            problems,
+            courses,
+        })
 })
 
 
