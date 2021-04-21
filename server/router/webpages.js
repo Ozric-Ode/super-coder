@@ -4,6 +4,7 @@ const webpagesRouter = new express.Router()
 const verifytoken = require('../Security/verifytoken-middleware.js')
 const getRankListData = require('../utils/ranklist.js')
 const getContestData = require('../utils/contestpage.js')
+const getProblemData = require('../utils/problempage.js')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
 const getCourses = require('../utils/getCourses')
@@ -132,12 +133,36 @@ webpagesRouter.get('/contest/:testId', async (req, res) => {
         Date,
         Start_Time,
         End_Time,
-        problemList
+        problemList,
+        Test_Id
     })
 
 
 })
 
+webpagesRouter.get('/problem/:problemId', async(req, res) => {
+    const Problem_Id = req.params.problemId;
+    console.log(Problem_Id)
+    const problemPage = await getProblemData(Problem_Id);
+
+    const Title = problemPage[0].Title;
+    const Problem_Statement = problemPage[0].Problem_Statement;
+    const Time_Limit = problemPage[0].Time_Limit;
+
+    const Professor_Id = problemPage[0].Professor_Id;
+    const Test_id = problemPage[0].Test_id;
+
+    res.render("questionpage.hbs", {
+        Title,
+        Problem_Statement,
+        Professor_Id,
+        Problem_Id,
+        Time_Limit,
+        Test_id
+    })
+
+
+})
 
 webpagesRouter.get('/problems', (req, res) => {
 
