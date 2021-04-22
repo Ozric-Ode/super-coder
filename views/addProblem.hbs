@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="../fonts/font-awesome.min.css">
     <link rel="stylesheet" href="../fonts/fontawesome5-overrides.min.css">
     <link rel="stylesheet" href="../css/Article-Clean.css">
-    <link rel="stylesheet" href="../css/Beautiful-Time-Picker.css">
-    <link rel="stylesheet" href="../css/opening-times-time-picker.css">
 </head>
 
 <body>
@@ -31,40 +29,46 @@
         </nav>
         <div class="container">
             <div class="row">
-                <div class="col-md-6" style="width: 279px;">
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Contest Title</strong></h1><textarea style="height: 30px;"></textarea>
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Professor ID</strong><br></h1><textarea style="height: 30px;"></textarea>
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter CourseCode</strong></h1><textarea style="height: 30px;"></textarea>
+                <div class="col-md-12" style="width: 1700px;">
+                   <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Problem Code</strong></h1>
+                    <div class="input-group mb-+">
+                    <input type="text" class="form-control col-md-4 problemCode" placeholder="Problem Code" aria-label="Problem Code" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                    <button class="btn btn-outline-secondary checkIfAvailable" type="button">Check If Available</button>
+                    </div>
+                    </div>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Problem Name</strong></h1>
+                    <input type="text" class="form-control col-md-4 title" placeholder="Problem Name" aria-label="Problem Name" aria-describedby="basic-addon2">
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Time Limit Problem</strong></h1>
+                    <input type="text" class="form-control col-md-4 timeLimit" placeholder="Time Limit" aria-label="Time Limit" aria-describedby="basic-addon2">
+                    <h1 style="font-size: 20px;width: 450px;margin-top: 14px;margin-bottom: 0px;"><strong>Enter Problem Content story</strong></h1><textarea class="content" style="height: 400px;width: 900px;"></textarea>
+                    <h2 style="font-size: 20px;margin-top: 20px;"><strong>Test case input file</strong></h2>
+                    <input type="file" accept=".txt" class="form-control-file inputFile">
+                    <h2 style="font-size: 20px;margin-top: 20px;"><strong>Test case output file</strong><br></h2>
+                    <input type="file" accept=".txt" class="form-control-file outputFile">
                     <section class="article-clean">
                         <div class="container" style="width: 1000px;background: var(--white);">
                             <div class="intro"></div>
                         </div>
                     </section>
                 </div>
-                <div class="col">
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Test ID</strong></h1><textarea style="height: 30px;"></textarea>
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Select Start Date</strong></h1><input type="date">
-                </div>
-                <div class="col">
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Start Time</strong></h1><textarea style="height: 30px;"></textarea>
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter End Time</strong></h1><textarea style="height: 30px;"></textarea>
-                    <div style="width:170px;box-shadow:0px 0px 4px 0px rgba(0,0,0,0.3);border-radius:4px;display:inline-block;position:relative;margin-right:40px;margin-bottom:40px;"></div>
-                </div>
             </div>
-        </div>
+       
+          <div style="text-align:center;">
+        <button class="btn btn-primary" id="save" type="button" style="margin-top: 25px;">
+            Save Test
+        </button>
     </div>
-    <h1 style="font-size: 20px;width: 250px;margin-top: 44px;margin-left: 140px;"><strong>Questions Added</strong></h1>
-    <ul class="list-group">
-        <li class="list-group-item" style="margin-left: 140px;margin-right: 660px;"><span>List Group Item 1</span></li>
-        <li class="list-group-item" style="margin-left: 140px;margin-right: 660px;"><span>List Group Item 2</span></li>
-        <li class="list-group-item" style="margin-left: 140px;margin-right: 660px;"><span>List Group Item 3</span></li>
-    </ul><button class="btn btn-primary" type="button" style="margin-left: 140px;margin-top: 25px;">Add New Question</button>
+     </div>
+    </div>
+  
     <script src="../js/jquery.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script src="../js/chart.min.js"></script>
     <script src="../js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="../js/theme.js"></script>
+    <script src="../js/addProblem.js"></script>
 </body>
 
 </html>

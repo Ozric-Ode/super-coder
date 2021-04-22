@@ -10,6 +10,7 @@ const webpagesRouter = require('../router/webpages.js')
 const signupRouter=require('../router/register_login.js')
 const createblogRouter=require('../router/create_blog_server.js')
 const blogsRouter = require('../router/readblog_server.js')
+const professorRouter= require('../router/professor.js')
 const PORT = process.env.PORT
 
 const viewsPath=path.join(__dirname,"../views");
@@ -24,6 +25,7 @@ app.use(webpagesRouter)
 app.use(signupRouter)
 app.use(createblogRouter)
 app.use(blogsRouter)
+app.use(professorRouter)
     // app.get((req, res) => {
     //     res.status(404).sendFile('404page.html', { root: path.join(__dirname, '../../webpages') })
     // })

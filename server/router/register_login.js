@@ -1,7 +1,7 @@
 const express = require('express')
 const signupRouter = new express.Router()
 const bcrypt = require('bcrypt')
-const generateAuthToken = require('../Security/jwt');
+const {generateAuthToken,generateAuthTokenProfessor} = require('../Security/jwt');
 const verifytoken = require('../Security/verifytoken-middleware');
 const dbFunction=require('../database/connectToDb.js')
 
@@ -28,7 +28,7 @@ signupRouter.post('/register', async (req, res) => {
     const token = await generateAuthToken(student.Student_Id)
       res.cookie('authtoken', token, {
         httpOnly: true,
-        maxAge: 100000000,
+        maxAge: 10000000000,
       })
       res.status(200).send()
   }
@@ -59,7 +59,7 @@ signupRouter.post('/login', async (req, res) => {
     const token = await generateAuthToken(req.body.Student_Id)
     res.cookie('authtoken', token, {
       httpOnly: true,
-      maxAge: 1000000,
+      maxAge: 10000000000,
     })
     const obj = {
       ...studentRes[0][0],
@@ -93,10 +93,10 @@ signupRouter.post('/login/professor', async (req, res) => {
       errorobj.errormsg='Wrong Password';
      return res.status(400).send(JSON.stringify(errorobj));
     }
-    const token = await generateAuthToken(professorRes[0][0].Professor_Id)
+    const token = await generateAuthTokenProfessor(professorRes[0][0].Professor_Id)
     res.cookie('authtoken', token, {
       httpOnly: true,
-      maxAge: 1000000,
+      maxAge: 10000000000,
     })
     const obj = {
       ...professorRes[0][0],
