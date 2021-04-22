@@ -29,7 +29,21 @@ const getProblemsFromTestId = async(TestId) => {
         return false;
     }
 };
+const getProblem = async(Problem_Id) => {
+    try {
+        const pool = await dbFunction.connectToDb();
+        let query = "SELECT * FROM programming_problem WHERE Problem_Id = ?";
+        const problemResponse = await pool.query(query, [Problem_Id]);
+        console.log(problemResponse[0]);
+        const problem = problemResponse[0];
+        await dbFunction.disconnectFromDb(pool);
+        return problem
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+};
 
 
 
-module.exports = {getProblemsFromTestId, getProblemsNotInTest};
+module.exports = {getProblemsFromTestId, getProblemsNotInTest,getProblem};

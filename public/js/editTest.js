@@ -34,10 +34,11 @@ $save.addEventListener('click', async (e) => {
     e.preventDefault();
     const selectedProblems=[];
     $("#lstBox1 option").each(function(){
-        var thisOptionValue=$(this).val();
+        var thisOptionValue=$(this).val().split(' ')[0];
         console.log(thisOptionValue);
         selectedProblems.push(thisOptionValue.trim())
     });
+    console.log(selectedProblems)
     const programming_test = {
         Test_Id: $('.testId').val(),
         Title: $('.title').val(),
@@ -53,7 +54,7 @@ $save.addEventListener('click', async (e) => {
         return alert('End_Time should be after Start Time')
     }
    try {
-        const response = await fetch('/addprogrammingtest', {
+        const response = await fetch('/editprogrammingtest', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
