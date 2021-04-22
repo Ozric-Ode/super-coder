@@ -6,6 +6,7 @@ const getRankListData = require('../utils/ranklist.js')
 const getContestData = require('../utils/contestpage.js')
 const getProblemData = require('../utils/problempage.js')
 const getEditContestListData = require('../utils/editTestList')
+const getMyProblemsData = require('../utils/editProblemList')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
 const getCourses = require('../utils/getCourses')
@@ -180,6 +181,20 @@ webpagesRouter.get('/edittestlist', verifytoken.verifytokenProfessor, async(req,
 
     res.render('editTestList.hbs', {
         contestList
+    })
+})
+
+webpagesRouter.get('/myproblems', verifytoken.verifytokenProfessor, async(req, res) => {
+    console.log(req.Professor_Id)
+    if (!req.Professor_Id) {
+        res.redirect('/login/professor')
+    }
+    // res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
+    const problemList = await getMyProblemsData(req.Professor_Id);
+
+
+    res.render('editProblemList.hbs', {
+        problemList
     })
 })
 
