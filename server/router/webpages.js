@@ -9,8 +9,8 @@ const getEditContestListData = require('../utils/editTestList')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
 const getCourses = require('../utils/getCourses')
-const { getTest } = require('../utils/getTests.js');
-const { getProblemsFromTestId, getProblemsNotInTest,getProblem } = require('../utils/fetchProblems.js')
+const { getTest, checkIfTestExists } = require('../utils/getTests.js');
+const { getProblemsFromTestId, getProblemsNotInTest,getProblem, checkIfProblemExists } = require('../utils/fetchProblems.js')
 const moment = require('moment')
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
@@ -216,6 +216,11 @@ webpagesRouter.get('/editproblem/:problemId', verifytoken.verifytokenProfessor,a
     if (!req.Professor_Id) {
         res.redirect('/login/professor')
     }
+    if(!await checkIfProblemExists(req.params.problemId))
+    {
+        return res.status(404).sendFile('404page.html', { root: path.join(__dirname, '../../webpages') })
+   
+    }
     console.log(req.params.problemId);
     const problem= await getProblem(req.params.problemId)
     console.log(problem)
@@ -228,10 +233,15 @@ webpagesRouter.get('/editproblem/:problemId', verifytoken.verifytokenProfessor,a
 })
 
 
-webpagesRouter.get('/edittest/:testId', verifytoken.verifytokenProfessor, async(req, res) => {
+webpagesRouter.get('/edittest/:', verifytoken.verifytokenProfessor, async(req, res) => {
     console.log(req.Professor_Id)
     if (!req.Professor_Id) {
         res.redirect('/login/professor')
+    }
+    if(!await checkIfTestExists(req.params.testId))
+    {
+        return res.status(404).sendFile('404page.html', { root: path.join(__dirname, '../../webpages') })
+   
     }
     // res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
     const problems = await getProblemsNotInTest(req.Professor_Id);
