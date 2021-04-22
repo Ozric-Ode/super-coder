@@ -8,7 +8,9 @@ const getProblemData = require('../utils/problempage.js')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
 const getCourses = require('../utils/getCourses')
-const getProblems = require('../utils/fetchProblems.js')
+const {getTest} = require('../utils/getTests.js');
+const {getProblemsFromTestId, getProblemsNotInTest}= require('../utils/fetchProblems.js')
+const moment=require('moment')
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
@@ -174,23 +176,69 @@ webpagesRouter.get('/problems', (req, res) => {
 })
 
 
-webpagesRouter.get('/addProblem', (req, res) => {
-
-    res.render('addProblem.hbs')
+webpagesRouter.get('/addproblem', verifytoken.verifytokenProfessor,(req, res) => {
+    console.log(req.Professor_Id)
+    if (!req.Professor_Id) {
+        res.redirect('/login/professor')
+    }
+  res.render('addProblem.hbs')
 })
 
 
-webpagesRouter.get('/addTest', verifytoken.verifytokenProfessor, async (req, res) => {
+webpagesRouter.get('/addtest', verifytoken.verifytokenProfessor, async (req, res) => {
     console.log(req.Professor_Id)
     if (!req.Professor_Id) {
         res.redirect('/login/professor')
     }
     // res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
-    const problems = await getProblems(req.Professor_Id);
+    const problems = await getProblemsNotInTest(req.Professor_Id);
     const courses = await getCourses();
     res.render('addTest.hbs', {
         problems,
         courses,
+    })
+})
+webpagesRouter.get('/editproblem/:problemId', verifytoken.verifytokenProfessor,(req, res) => {
+    console.log(req.Professor_Id)
+    if (!req.Professor_Id) {
+        res.redirect('/login/professor')
+    }
+  res.render('editProblem.hbs')
+})
+
+
+webpagesRouter.get('/edittest/:testId', verifytoken.verifytokenProfessor, async (req, res) => {
+    console.log(req.Professor_Id)
+    if (!req.Professor_Id) {
+        res.redirect('/login/professor')
+    }
+    // res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
+    const problems = await getProblemsNotInTest(req.Professor_Id);
+    const courses = await getCourses();
+    const testRes = await getTest(req.params.testId)
+    const testProblems = await getProblemsFromTestId(req.params.testId);
+    testProblems.forEach((problem)=>{
+    if(problem.Professor_Id!==req.Professor_Id){
+            problem.Course_Code+=' -1';
+        }
+        else{
+            problem.Course_Code+=' 0';
+        }
+    })
+    const test={
+        ...testRes[0]
+    }
+    console.log('test date', moment(test.Date).format('yyyy-MM-DD'))
+    const finalCourses = courses.filter(course=> course.Course_Code!==test.Course_Code)
+    res.render('editTest.hbs', {
+        problems,
+        finalCourses,
+        testProblems,
+        date:moment(test.Date).format('yyyy-MM-DD'),
+        title:test.Title,
+        testId:test.Test_Id,
+        Start_Time:test.Start_Time,
+        End_Time:test.End_Time
     })
 })
 

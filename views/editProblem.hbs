@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Super Coder</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="../fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="../css/Article-Clean.css">
+</head>
+
+<body>
+    <div id="content">
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+            <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                <h1>Super Coder</h1>
+                <div class="d-none d-sm-block topbar-divider"></div><button class="btn btn-primary" type="button" style="margin-left: 0px;background: var(--success);border-color: var(--success);color: var(--light);">IDE</button>
+                <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <div class="input-group-append"></div>
+                    </div>
+                </form><button class="btn btn-primary" type="button">Login</button><button class="btn btn-primary" type="button" style="color: var(--blue);background: var(--white);margin-left: 20px;">Sign Up</button>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="width: 1700px;">
+                   <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Problem Code</strong></h1>
+                    <div class="input-group mb-+">
+                    <input type="text" class="form-control col-md-4 problemCode" placeholder="Problem Code" aria-label="Problem Code" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                    <button class="btn btn-outline-secondary checkIfAvailable" type="button">Check If Available</button>
+                    </div>
+                    </div>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Problem Name</strong></h1>
+                    <input type="text" class="form-control col-md-4 title" placeholder="Problem Name" aria-label="Problem Name" aria-describedby="basic-addon2">
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Time Limit Problem</strong></h1>
+                    <input type="text" class="form-control col-md-4 timeLimit" placeholder="Time Limit" aria-label="Time Limit" aria-describedby="basic-addon2">
+                    <h1 style="font-size: 20px;width: 450px;margin-top: 14px;margin-bottom: 0px;"><strong>Enter Problem Content story</strong></h1><textarea class="content" style="height: 400px;width: 900px;"></textarea>
+                    <h2 style="font-size: 20px;margin-top: 20px;"><strong>Test case input file</strong></h2>
+                    <input type="file" accept=".txt" class="form-control-file inputFile">
+                    <h2 style="font-size: 20px;margin-top: 20px;"><strong>Test case output file</strong><br></h2>
+                    <input type="file" accept=".txt" class="form-control-file outputFile">
+                    <section class="article-clean">
+                        <div class="container" style="width: 1000px;background: var(--white);">
+                            <div class="intro"></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+       
+          <div style="text-align:center;">
+        <button class="btn btn-primary" id="save" type="button" style="margin-top: 25px;">
+            Save Test
+        </button>
+    </div>
+     </div>
+    </div>
+  
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/chart.min.js"></script>
+    <script src="../js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/addProblem.js"></script>
+</body>
+
+</html>
