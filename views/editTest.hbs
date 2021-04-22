@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Super Coder</title>
+    <link rel="stylesheet" href="..//bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="../fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../fonts/fontawesome5-overrides.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .timepickerdiv {
+            --color: #000000;
+            --size: 1rem;
+            --border: 1px;
+            --margin: calc(var(--size) * 0.25);
+            --marginLeft: calc(var(--size) + calc(var(--size) * 0.5));
+            background: var(--bgColor);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            width: 140px;
+            align-items: center;
+            justify-content: center;
+            font-family: helvetica, arial, sans-serif;
+        }
+
+        .time {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><circle cx='20' cy='20' r='18.5' fill='none' stroke='%23222' stroke-width='3' /><path d='M20,4 20,8 M4,20 8,20 M36,20 32,20 M20,36 20,32' stroke='%23bbb' stroke-width='1' /><circle cx='20' cy='20' r='2' fill='%23222' stroke='%23222' stroke-width='2' /></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><path d='M18.5,24.5 19.5,4 20.5,4 21.5,24.5 Z' fill='%23222' style='transform:rotate(120deg); transform-origin: 50% 50%;' /></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><path d='M18.5,24.5 19.5,8.5 20.5,8.5 21.5,24.5 Z' style='transform:rotate(20deg); transform-origin: 50% 50%;' /></svg>");
+            background-position: var(--margin) 50%;
+            background-repeat: no-repeat;
+            background-size: var(--size) var(--size);
+            border: var(--border) solid var(--color);
+            border-radius: var(--borderRadius);
+            color: #222;
+            font-size: var(--size);
+            padding: var(--margin) var(--margin) var(--margin) var(--marginLeft);
+            transition: backgroundImage 0.25s;
+        }
+
+        .time:focus {
+            outline: 2px dashed #4E73DF;
+            outline-offset: 3px;
+        }
+
+        .subject-info-box-1,
+        .subject-info-box-2 {
+            float: left;
+            width: 45%;
+        }
+
+        .subject-info-box-1 select,
+        .subject-info-box-2 select {
+            height: 200px;
+            padding: 0;
+        }
+
+        .subject-info-box-1 select option,
+        .subject-info-box-2 select option {
+            padding: 4px 10px 4px 10px;
+        }
+
+        .subject-info-box-1 select option:hover,
+        .subject-info-box-2 select option:hover {
+            background: #eee;
+        }
+
+        .subject-info-arrows {
+            float: left;
+            width: 10%;
+        }
+
+        .subject-info-arrows input {
+            width: 70%;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+            <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3"
+                    id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                <h1>Super Coder</h1>
+                <div class="d-none d-sm-block topbar-divider"></div><button class="btn btn-primary" type="button"
+                    style="margin-left: 0px;background: var(--success);border-color: var(--success);color: var(--light);">IDE</button>
+                <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <div class="input-group-append"></div>
+                    </div>
+                </form><button class="btn btn-primary" type="button">Login</button><button class="btn btn-primary"
+                    type="button" style="color: var(--blue);background: var(--white);margin-left: 20px;">Sign
+                    Up</button>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" style="width: 279px;">
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Test Title</strong></h1>
+                    <input value="{{title}}" type="text" class="col-md-8 title" style="height: 30px;" class="title"></input>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter CourseCode</strong></h1>
+                   
+                    <select class="dropdown form-control col-md-8" name="select1" id="course">
+                        <option value="0">{{test.Course_Code}}</option>
+                         {{#finalCourses}}
+                        <option value="{{Course_Code}}">{{Course_Code}}</option>
+                         {{/finalCourses}}
+                    </select>
+                    
+                    <section class="article-clean">
+                        <div class="container" style="width: 1000px;background: var(--white);">
+                            <div class="intro"></div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-4">
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Test ID</strong></h1>
+                    <div class="input-group col-md-12">
+                    <input value="{{testId}}"  type="text" class="form-control col-md-6 testId" placeholder="Test Id" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled>
+                    <div class="input-group-append">
+                    <button class="btn btn-outline-secondary checkIfAvailable" type="button">Check If Available</button>
+                    </div>
+                    </div>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Select Date{{test.Test_id}}</strong></h1>
+                    <input value="{{date}}" type="date" class="date">
+                </div>
+                <div class="col-md-3">
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Start Time</strong></h1>
+                    <div class="timepickerdiv"><input value="{{Start_Time}}"  type="time" name="time" class="time" id="startTime" /> </div>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter End Time</strong></h1>
+                    <div class="timepickerdiv"> <input value="{{End_Time}}" type="time" name="time" class="time" id="endTime" /> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-md-6">
+            <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 140px;"><strong>Problems Added</strong></h1>
+
+            <ul class="list-group">
+                <li class="list-group-item col-md-6" style="margin-left: 140px;margin-right:660px;" >List Group Item 1
+                </li>
+            </ul> 
+        </div>
+        <div class="col-md-6">
+            <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 140px;"><strong>Problems Available</strong></h1>
+    
+            <ul class="list-group">
+                <li class="list-group-item col-md-6" style="margin-left: 140px;margin-right:660px;">
+                    <span>List Group Item 1</span></li>
+            </ul>
+        </div>
+    </div> -->
+    <div class="container">
+        <div class="row">
+            <div class="subject-info-box-1 col-md-4">
+                <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 90px;"><strong>Problems
+                        Added</strong></h1>
+                <select multiple="multiple" id='lstBox1' class="form-control" style="height:150px">
+                    {{#testProblems}}
+                     <option value="{{Problem_Id}}">{{Problem_Id}}: {{Title}}</option>
+                    {{/testProblems}}
+                </select>
+            </div>
+
+            <div class="subject-info-arrows text-center col-md-3" style="margin-top:70px;">
+                <!-- <input type='button' id='btnRight' value='Remove Problem' class="btn btn-default" /><br />
+                <input type='button' id='btnLeft' value='Add Problem' class="btn btn-default" /><br /> -->
+                <button class="btn btn-success" id='btnLeft' type="button" style="margin-top: 25px;">
+                    Add Problem
+                </button> <button id='btnRight' class="btn btn-danger" type="button" style="margin-top: 25px;">
+                    Remove Problem
+                </button>
+            </div>
+
+            <div class="subject-info-box-2 col-md-4">
+                <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 90px;"><strong>Problems
+                        Available</strong></h1>
+                {{#if problems}}        
+                {{#problems}}
+                <select multiple="multiple" id='lstBox2' class="form-control" style="height:150px">
+                    <option value="{{Problem_Id}}">{{Problem_Id}}: {{Title}}</option>
+                </select>
+                {{/problems}}
+                {{else}}
+                 <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 90px;"><strong>No Problems Available
+                {{/if}}
+
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center;">
+        <button class="btn btn-primary" id="save" type="button" style="margin-top: 25px;">
+            Save Test
+        </button>
+    </div>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/chart.min.js"></script>
+    <script src="../js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="../js/theme.js"> </script>
+    <script src="../js/createContest.js"></script>
+    <script>
+        function strDes(a, b) {
+            if (a.value > b.value) return 1;
+            else if (a.value < b.value) return -1;
+            else return 0;
+        }
+
+        (function () {
+            $('#btnRight').click(function (e) {
+                var selectedOpts = $('#lstBox1 option:selected');
+                if (selectedOpts.length == 0) {
+                    alert("Nothing to move.");
+                    e.preventDefault();
+                }
+                if (selectedOpts.val().split(' ')[1] == '-1') {
+                    alert("Not authorised to remove this question");
+                    return
+                    e.preventDefault();
+                }
+
+                $('#lstBox2').append($(selectedOpts).clone());
+                $(selectedOpts).remove();
+
+                //  -- Uncomment for optional sorting --
+                // var box2Options = $('#lstBox2 option');
+                // var box2OptionsSorted;
+                // box2OptionsSorted = box2Options.toArray().sort(strDes);
+                // $('#lstBox2').empty();
+                // box2OptionsSorted.forEach(function(opt){
+                //   $('#lstBox2').append(opt);
+                // })
+
+
+                e.preventDefault();
+            });
+
+
+            $('#btnLeft').click(function (e) {
+                var selectedOpts = $('#lstBox2 option:selected');
+                if (selectedOpts.length == 0) {
+                    alert("Nothing to move.");
+                    e.preventDefault();
+                }
+
+                $('#lstBox1').append($(selectedOpts).clone());
+                $(selectedOpts).remove();
+                e.preventDefault();
+            });
+
+        }(jQuery));
+
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,4 @@
 const express = require('express')
-const getToken = require('../utils/sendcode')
-const workOnToken = require('../utils/recieveSolution')
 const professorRouter = new express.Router()
 const dbFunction=require('../database/connectToDb.js')
 
@@ -33,7 +31,6 @@ professorRouter.post('/checkproblemid', async (req, res) => {
     }
 })
 professorRouter.post('/checktestid', async (req, res) => {
-
     try {
         console.log("req.body.Test_Id", req.body.Test_Id);
         var errorobj={errormsg:''};
@@ -72,23 +69,20 @@ professorRouter.post('/addprogrammingproblem', async (req, res) => {
         }
         delete programming_problem.Input;
         delete programming_problem.Output
-        console.log(programming_problem);
-        console.log(test_case_file);
+        // console.log(programming_problem);
+        // console.log(test_case_file);
         var errorobj={errormsg:''};
-        // const pool=await dbFunction.connectToDb();
-        // const query1='INSERT INTO programming_problem SET ?';
-        // const query2='UPDATE programming_problem SET Test_id = ? WHERE Problem_Id = ?';
-        // const insertTestRes=await pool.query(query1,[programming_problem]);
-        // console.log(insertTestRes);
-        // for(let i=0;i<programming_problem.length;i++)
-        // {
-        //     const changeProgrammingProblemTestRes=await pool.query(query2,[programming_problem.Test_Id,programming_problem[i]]);
-        //     console.log(changeProgrammingProblemTestRes);
-        // }
+        const pool=await dbFunction.connectToDb();
+        const query1='INSERT INTO programming_problem SET ?';
+        const query2='INSERT INTO test_case_file SET ?';
+        const insertProblemRes=await pool.query(query1,[programming_problem]);
+        const insertTestCaseFileRes=await pool.query(query2,[test_case_file]);
+        console.log(insertProblemRes);
+        console.log(insertTestCaseFileRes);
         const obj={
             msg:'Congratulations Test Saved Succesfully'
         }
-        // await dbFunction.disconnectFromDb(pool);
+        await dbFunction.disconnectFromDb(pool);
         return res.status(200).send(JSON.stringify(obj));
 
     } catch (error) {
