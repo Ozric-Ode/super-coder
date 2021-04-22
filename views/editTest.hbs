@@ -104,16 +104,17 @@
             <div class="row">
                 <div class="col-md-4" style="width: 279px;">
                     <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Test Title</strong></h1>
-                    <input value="{{title}}" type="text" class="col-md-8 title" style="height: 30px;" class="title"></input>
+                    <input value="{{title}}" type="text" class="col-md-8 title" style="height: 30px;"
+                        class="title"></input>
                     <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter CourseCode</strong></h1>
-                   
+
                     <select class="dropdown form-control col-md-8" name="select1" id="course">
-                        <option value="0">{{test.Course_Code}}</option>
-                         {{#finalCourses}}
+                        <option value="{{currentCourse_Code}}">{{currentCourse_Code}}</option>
+                        {{#finalCourses}}
                         <option value="{{Course_Code}}">{{Course_Code}}</option>
-                         {{/finalCourses}}
+                        {{/finalCourses}}
                     </select>
-                    
+
                     <section class="article-clean">
                         <div class="container" style="width: 1000px;background: var(--white);">
                             <div class="intro"></div>
@@ -123,19 +124,21 @@
                 <div class="col-md-4">
                     <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Test ID</strong></h1>
                     <div class="input-group col-md-12">
-                    <input value="{{testId}}"  type="text" class="form-control col-md-6 testId" placeholder="Test Id" aria-label="Recipient's username" aria-describedby="basic-addon2" disabled>
-                    <div class="input-group-append">
-                    <button class="btn btn-outline-secondary checkIfAvailable" type="button">Check If Available</button>
+                        <input value="{{testId}}" type="text" class="form-control col-md-6 testId" placeholder="Test Id"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2" disabled>
+                       
                     </div>
-                    </div>
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Select Date{{test.Test_id}}</strong></h1>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Select
+                            Date{{test.Test_id}}</strong></h1>
                     <input value="{{date}}" type="date" class="date">
                 </div>
                 <div class="col-md-3">
                     <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Start Time</strong></h1>
-                    <div class="timepickerdiv"><input value="{{Start_Time}}"  type="time" name="time" class="time" id="startTime" /> </div>
+                    <div class="timepickerdiv"><input value="{{Start_Time}}" type="time" name="time" class="time"
+                            id="startTime" /> </div>
                     <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter End Time</strong></h1>
-                    <div class="timepickerdiv"> <input value="{{End_Time}}" type="time" name="time" class="time" id="endTime" /> </div>
+                    <div class="timepickerdiv"> <input value="{{End_Time}}" type="time" name="time" class="time"
+                            id="endTime" /> </div>
                 </div>
             </div>
         </div>
@@ -166,7 +169,7 @@
                         Added</strong></h1>
                 <select multiple="multiple" id='lstBox1' class="form-control" style="height:150px">
                     {{#testProblems}}
-                     <option value="{{Problem_Id}}">{{Problem_Id}}: {{Title}}</option>
+                    <option value="{{Problem_Id_Value}}">{{Problem_Id}}: {{Title}}</option>
                     {{/testProblems}}
                 </select>
             </div>
@@ -182,16 +185,21 @@
             </div>
 
             <div class="subject-info-box-2 col-md-4">
+
+                {{#if problems}}
                 <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 90px;"><strong>Problems
                         Available</strong></h1>
-                {{#if problems}}        
                 {{#problems}}
                 <select multiple="multiple" id='lstBox2' class="form-control" style="height:150px">
                     <option value="{{Problem_Id}}">{{Problem_Id}}: {{Title}}</option>
                 </select>
                 {{/problems}}
                 {{else}}
-                 <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 90px;"><strong>No Problems Available
+                <h1 style="font-size: 20px;width: 220px;margin-top: 44px;margin-left: 60px;"><strong>No Problems
+                        Available</strong></h1> <select multiple="multiple" id='lstBox2' class="form-control"
+                    style="height:150px"></select>
+
+                </select>
                 {{/if}}
 
             </div>
@@ -208,7 +216,7 @@
     <script src="../js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="../js/theme.js"> </script>
-    <script src="../js/createContest.js"></script>
+    <script src="../js/editTest.js"></script>
     <script>
         function strDes(a, b) {
             if (a.value > b.value) return 1;
@@ -223,7 +231,7 @@
                     alert("Nothing to move.");
                     e.preventDefault();
                 }
-                if (selectedOpts.val().split(' ')[1] == '-1') {
+                if (selectedOpts.val().split(' ')[1] === '-1') {
                     alert("Not authorised to remove this question");
                     return
                     e.preventDefault();

@@ -56,6 +56,43 @@ professorRouter.post('/checktestid', async (req, res) => {
           return res.status(400).send(JSON.stringify(errorobj))
     }
 })
+professorRouter.post('/editprogrammingproblem', async (req, res) => {
+    console.log()
+    try {
+        const programming_problem={
+            ...req.body
+        }
+        const test_case_file={
+            Problem_Id:programming_problem.Problem_Id,
+            Input:programming_problem.Input,
+            Output:programming_problem.Output
+        }
+        delete programming_problem.Input;
+        delete programming_problem.Output
+        console.log(programming_problem);
+        console.log(test_case_file);
+        var errorobj={errormsg:''};
+        const pool=await dbFunction.connectToDb();
+        const query1='UPDATE programming_problem SET ? WHERE Problem_Id = ?';
+        const query2='UPDATE test_case_file SET ? WHERE Problem_Id = ?';
+        const insertProblemRes=await pool.query(query1,[programming_problem,programming_problem.Problem_Id]);
+        const insertTestCaseFileRes=await pool.query(query2,[test_case_file,programming_problem.Problem_Id]);
+        console.log(insertProblemRes);
+        console.log(insertTestCaseFileRes);
+        const obj={
+            msg:'Congratulations Test Saved Succesfully'
+        }
+        await dbFunction.disconnectFromDb(pool);
+        return res.status(200).send(JSON.stringify(obj));
+
+    } catch (error) {
+        console.log(error)
+        const errorobj = {
+            errormsg: error,
+          }
+          res.status(400).send(JSON.stringify(errorobj))
+    }
+})
 professorRouter.post('/addprogrammingproblem', async (req, res) => {
 
     try {
@@ -80,7 +117,7 @@ professorRouter.post('/addprogrammingproblem', async (req, res) => {
         console.log(insertProblemRes);
         console.log(insertTestCaseFileRes);
         const obj={
-            msg:'Congratulations Test Saved Succesfully'
+            msg:'Congratulations Problem Saved Succesfully'
         }
         await dbFunction.disconnectFromDb(pool);
         return res.status(200).send(JSON.stringify(obj));
@@ -126,6 +163,90 @@ professorRouter.post('/addprogrammingtest', async (req, res) => {
           res.status(400).send(JSON.stringify(errorobj))
     }
 })
+
+professorRouter.post('/editprogrammingtest', async (req, res) => {
+
+    try {
+        const programming_test={
+            ...req.body
+        }
+        const programming_problem_toBeAdded=programming_test.ProblemsAdded;
+        const programming_problem_toBeRemoved=programming_test.ProblemsRemoved;
+        delete programming_test.ProblemsAdded;
+        delete programming_test.ProblemsRemoved
+        console.log(programming_problem_toBeAdded);
+        console.log(programming_test);
+        var errorobj={errormsg:''};
+        const Test_Id=programming_test.Test_Id;
+        delete programming_test.Test_Id;
+        const pool=await dbFunction.connectToDb();
+        const query1='UPDATE programming_test SET ? WHERE Test_Id = ?';
+        const query2='UPDATE programming_problem SET Test_id = ? WHERE Problem_Id = ?';
+        const query3='UPDATE programming_problem SET Test_id = null WHERE Problem_Id = ?';
+        const insertTestRes=await pool.query(query1,[programming_test,Test_Id]);
+        console.log(insertTestRes);
+       
+        for(let i=0;i<programming_problem_toBeAdded.length;i++)
+        {
+            const changeProgrammingProblemTestRes=await pool.query(query2,[Test_Id,programming_problem_toBeAdded[i]]);
+            console.log(changeProgrammingProblemTestRes);
+        }
+        for(let i=0;i<programming_problem_toBeRemoved.length;i++)
+        {
+           
+            const changeProgrammingProblemTestRes=await pool.query(query3,[programming_problem_toBeRemoved[i]]);
+            console.log(changeProgrammingProblemTestRes);
+        }
+        const obj={
+            msg:'Congratulations Test Saved Succesfully'
+        }
+        await dbFunction.disconnectFromDb(pool);
+        return res.status(200).send(JSON.stringify(obj));
+
+    } catch (error) {
+        console.log(error)
+        const errorobj = {
+            errormsg: error,
+          }
+          res.status(400).send(JSON.stringify(errorobj))
+    }
+})
+professorRouter.post('/editprogrammingtest', async (req, res) => {
+    try {
+        const programming_test={
+            ...req.body
+        }
+        const programming_problem=programming_test.ProblemsAdded;
+        delete programming_test.ProblemsAdded;
+        console.log('**********************')
+        console.log(programming_problem);
+        console.log(programming_test);
+        console.log('**********************')
+        var errorobj={errormsg:''};
+        const pool=await dbFunction.connectToDb();
+        const query1='UPDATE programming_test SET ? WHERE Test_Id = ?';
+        const query2='UPDATE programming_problem SET Test_id = ? WHERE Problem_Id = ?';
+        const insertTestRes=await pool.query(query1,[programming_test,programming_test.Test_Id]);
+        console.log(insertTestRes);
+        for(let i=0;i<programming_problem.length;i++)
+        {
+            const changeProgrammingProblemTestRes=await pool.query(query2,[programming_test.Test_Id,programming_problem[i]]);
+            console.log(changeProgrammingProblemTestRes);
+        }
+        const obj={
+            msg:'Congratulations Test Saved Succesfully'
+        }
+        await dbFunction.disconnectFromDb(pool);
+        return res.status(200).send(JSON.stringify(obj));
+
+    } catch (error) {
+        const errorobj = {
+            errormsg: error,
+          }
+          res.status(400).send(JSON.stringify(errorobj))
+    }
+})
+
 professorRouter.post('/addcourse', async (req, res) => {
     try {
         const course={

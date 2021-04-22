@@ -11,7 +11,7 @@ const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
 const getCourses = require('../utils/getCourses')
 const { getTest } = require('../utils/getTests.js');
-const { getProblemsFromTestId, getProblemsNotInTest } = require('../utils/fetchProblems.js')
+const { getProblemsFromTestId, getProblemsNotInTest,getProblem } = require('../utils/fetchProblems.js')
 const moment = require('moment')
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
@@ -226,12 +226,20 @@ webpagesRouter.get('/addtest', verifytoken.verifytokenProfessor, async(req, res)
         courses,
     })
 })
-webpagesRouter.get('/editproblem/:problemId', verifytoken.verifytokenProfessor, (req, res) => {
+webpagesRouter.get('/editproblem/:problemId', verifytoken.verifytokenProfessor,async (req, res) => {
     console.log(req.Professor_Id)
     if (!req.Professor_Id) {
         res.redirect('/login/professor')
     }
-    res.render('editProblem.hbs')
+    console.log(req.params.problemId);
+    const problem= await getProblem(req.params.problemId)
+    console.log(problem)
+  res.render('editProblem.hbs',{
+    problemId:problem[0].Problem_Id,
+    title:problem[0].Title,
+    timeLimit:problem[0].Time_Limit,
+    content:problem[0].Problem_Statement
+  })
 })
 
 
@@ -245,27 +253,34 @@ webpagesRouter.get('/edittest/:testId', verifytoken.verifytokenProfessor, async(
     const courses = await getCourses();
     const testRes = await getTest(req.params.testId)
     const testProblems = await getProblemsFromTestId(req.params.testId);
-    testProblems.forEach((problem) => {
-        if (problem.Professor_Id !== req.Professor_Id) {
-            problem.Course_Code += ' -1';
-        } else {
-            problem.Course_Code += ' 0';
+    console.log('problems ',testProblems)
+    
+    testProblems.forEach((problem)=>{
+      
+    if(problem.Professor_Id!==req.Professor_Id){
+            problem.Problem_Id_Value=problem.Problem_Id+' -1';
+        }
+        else{
+            problem.Problem_Id_Value=problem.Problem_Id+' 0';
         }
     })
     const test = {
         ...testRes[0]
     }
-    console.log('test date', moment(test.Date).format('yyyy-MM-DD'))
-    const finalCourses = courses.filter(course => course.Course_Code !== test.Course_Code)
+    console.log('problems ki mks',testProblems)
+    // console.log('test date', moment(test.Date).format('yyyy-MM-DD'))
+    
+    const finalCourses = courses.filter(course=> course.Course_Code!==test.Course_Code)
     res.render('editTest.hbs', {
         problems,
         finalCourses,
         testProblems,
-        date: moment(test.Date).format('yyyy-MM-DD'),
-        title: test.Title,
-        testId: test.Test_Id,
-        Start_Time: test.Start_Time,
-        End_Time: test.End_Time
+        date:moment(test.Date).format('yyyy-MM-DD'),
+        title:test.Title,
+        testId:test.Test_Id,
+        Start_Time:test.Start_Time,
+        End_Time:test.End_Time,
+        currentCourse_Code:test.Course_Code
     })
 })
 

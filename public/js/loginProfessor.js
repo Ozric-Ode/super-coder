@@ -25,7 +25,8 @@ $signin.addEventListener('click', async (e) => {
         }
         // console.log(response.status)
         // window.alert('congratulations for logging in')
-        delete data.password;
+        delete data.Password;
+        delete data.token;
         window.localStorage.setItem('Professor_Id', data.Professor_Id);
         window.localStorage.setItem('professor', JSON.stringify(data));
         window.location.href = '/profile/professor';
