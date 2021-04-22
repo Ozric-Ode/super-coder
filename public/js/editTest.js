@@ -1,42 +1,21 @@
-const $checkTestId=document.querySelector('.checkIfAvailable')
+
 const $save = document.querySelector('#save')
-
-$checkTestId.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const testId = {
-        Test_Id: $('.testId').val(),
-    }
-    console.log(testId);
-    try {
-        const response = await fetch('/checktestid', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            redirect: 'follow',
-            body: JSON.stringify(testId)
-
-        })
-        const data = await response.json()
-        console.log(data)
-        if (response.status !== 200) {
-            throw new Error(data.errormsg)
-        }
-        // console.log(response.status)
-        window.alert(data.msg)
-    } catch (error) {
-        alert(error.message)
-        console.error(error)
-    }
-})
 
 $save.addEventListener('click', async (e) => {
     e.preventDefault();
     const selectedProblems=[];
+    const removedProblems=[];
+    
     $("#lstBox1 option").each(function(){
         var thisOptionValue=$(this).val().split(' ')[0];
         console.log(thisOptionValue);
         selectedProblems.push(thisOptionValue.trim())
+    });
+    
+    $("#lstBox2 option").each(function(){
+        var thisOptionValue=$(this).val().split(' ')[0];
+        console.log(thisOptionValue);
+        removedProblems.push(thisOptionValue.trim())
     });
     console.log(selectedProblems)
     const programming_test = {
@@ -47,7 +26,8 @@ $save.addEventListener('click', async (e) => {
         End_Time: $('#endTime').val(),
         Course_Code:$('#course').val(),
         Professor_Id:parseInt(window.localStorage.getItem('Professor_Id')),
-        ProblemsAdded:selectedProblems
+        ProblemsAdded:selectedProblems,
+        ProblemsRemoved:removedProblems
     }
     console.log(programming_test);
     if(programming_test.End_Time<programming_test.Start_Time){
@@ -73,7 +53,7 @@ $save.addEventListener('click', async (e) => {
         window.location.href = '/profile/professor';
     } catch (error) {
         alert(error.message)
-        console.error(error)
+        console.log(error)
     }
 
 })

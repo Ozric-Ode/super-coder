@@ -117,7 +117,7 @@ professorRouter.post('/addprogrammingproblem', async (req, res) => {
         console.log(insertProblemRes);
         console.log(insertTestCaseFileRes);
         const obj={
-            msg:'Congratulations Test Saved Succesfully'
+            msg:'Congratulations Problem Saved Succesfully'
         }
         await dbFunction.disconnectFromDb(pool);
         return res.status(200).send(JSON.stringify(obj));
@@ -170,19 +170,31 @@ professorRouter.post('/editprogrammingtest', async (req, res) => {
         const programming_test={
             ...req.body
         }
-        const programming_problem=programming_test.ProblemsAdded;
+        const programming_problem_toBeAdded=programming_test.ProblemsAdded;
+        const programming_problem_toBeRemoved=programming_test.ProblemsRemoved;
         delete programming_test.ProblemsAdded;
-        console.log(programming_problem);
+        delete programming_test.ProblemsRemoved
+        console.log(programming_problem_toBeAdded);
         console.log(programming_test);
         var errorobj={errormsg:''};
+        const Test_Id=programming_test.Test_Id;
+        delete programming_test.Test_Id;
         const pool=await dbFunction.connectToDb();
-        const query1='INSERT INTO programming_test SET ?';
+        const query1='UPDATE programming_test SET ? WHERE Test_Id = ?';
         const query2='UPDATE programming_problem SET Test_id = ? WHERE Problem_Id = ?';
-        const insertTestRes=await pool.query(query1,[programming_test]);
+        const query3='UPDATE programming_problem SET Test_id = null WHERE Problem_Id = ?';
+        const insertTestRes=await pool.query(query1,[programming_test,Test_Id]);
         console.log(insertTestRes);
-        for(let i=0;i<programming_problem.length;i++)
+       
+        for(let i=0;i<programming_problem_toBeAdded.length;i++)
         {
-            const changeProgrammingProblemTestRes=await pool.query(query2,[programming_test.Test_Id,programming_problem[i]]);
+            const changeProgrammingProblemTestRes=await pool.query(query2,[Test_Id,programming_problem_toBeAdded[i]]);
+            console.log(changeProgrammingProblemTestRes);
+        }
+        for(let i=0;i<programming_problem_toBeRemoved.length;i++)
+        {
+           
+            const changeProgrammingProblemTestRes=await pool.query(query3,[programming_problem_toBeRemoved[i]]);
             console.log(changeProgrammingProblemTestRes);
         }
         const obj={
@@ -192,6 +204,7 @@ professorRouter.post('/editprogrammingtest', async (req, res) => {
         return res.status(200).send(JSON.stringify(obj));
 
     } catch (error) {
+        console.log(error)
         const errorobj = {
             errormsg: error,
           }
