@@ -124,6 +124,16 @@ signupRouter.get('/logout', verifytoken.verifytokenStudent, (req, res) => {
   }
   res.redirect('/login')
 })
+signupRouter.get('/logout/professor', verifytoken.verifytokenProfessor, (req, res) => {
+  if (req.Professor_Id) {
+    res.cookie('authtoken', '', {
+      httpOnly: true,
+      maxAge: 0
+    })
+    return res.redirect('/login/professor')
+  }
+  res.redirect('/login/professor')
+})
 
 
 module.exports = signupRouter

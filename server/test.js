@@ -30,8 +30,10 @@
 
 const bcrypt = require('bcrypt')
 const abc=async ()=>{
-const password = await bcrypt.hash('antriksh.goswami@iiitv', 8)
+const password = await bcrypt.hash('novarun_deb@iiitv', 8)
 console.log(password);
 }
 
 abc()
+
+//antriksh.goswami@iiitv

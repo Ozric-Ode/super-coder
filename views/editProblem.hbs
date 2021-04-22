@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -32,16 +31,13 @@
                 <div class="col-md-12" style="width: 1700px;">
                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Problem Code</strong></h1>
                     <div class="input-group mb-+">
-                    <input type="text" class="form-control col-md-4 problemCode" placeholder="Problem Code" aria-label="Problem Code" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                    <button class="btn btn-outline-secondary checkIfAvailable" type="button">Check If Available</button>
-                    </div>
+                    <input value="{{problemId}}" type="text" class="form-control col-md-4 problemCode" placeholder="Problem Code" aria-label="Problem Code" aria-describedby="basic-addon2" disabled>
                     </div>
                     <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Problem Name</strong></h1>
-                    <input type="text" class="form-control col-md-4 title" placeholder="Problem Name" aria-label="Problem Name" aria-describedby="basic-addon2">
+                    <input value="{{title}}" type="text" class="form-control col-md-4 title"></input>
                     <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Time Limit Problem</strong></h1>
-                    <input type="text" class="form-control col-md-4 timeLimit" placeholder="Time Limit" aria-label="Time Limit" aria-describedby="basic-addon2">
-                    <h1 style="font-size: 20px;width: 450px;margin-top: 14px;margin-bottom: 0px;"><strong>Enter Problem Content story</strong></h1><textarea class="content" style="height: 400px;width: 900px;"></textarea>
+                    <input value="{{timeLimit}}" type="text" class="form-control col-md-4 timeLimit" placeholder="Time Limit" aria-label="Time Limit" aria-describedby="basic-addon2">
+                    <h1 style="font-size: 20px;width: 450px;margin-top: 14px;margin-bottom: 0px;"><strong>Enter Problem Content story</strong></h1><textarea class="content" style="height: 400px;width: 900px;"> {{content}}</textarea>
                     <h2 style="font-size: 20px;margin-top: 20px;"><strong>Test case input file</strong></h2>
                     <input type="file" accept=".txt" class="form-control-file inputFile">
                     <h2 style="font-size: 20px;margin-top: 20px;"><strong>Test case output file</strong><br></h2>
@@ -68,7 +64,7 @@
     <script src="../js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="../js/theme.js"></script>
-    <script src="../js/addProblem.js"></script>
+    <script src="../js/editProblem.js"></script>
 </body>
 
 </html>

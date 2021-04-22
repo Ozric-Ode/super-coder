@@ -108,7 +108,7 @@
                     <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter CourseCode</strong></h1>
                    
                     <select class="dropdown form-control col-md-8" name="select1" id="course">
-                        <option value="0">{{test.Course_Code}}</option>
+                        <option value="{{currentCourse_Code}}">{{currentCourse_Code}}</option>
                          {{#finalCourses}}
                         <option value="{{Course_Code}}">{{Course_Code}}</option>
                          {{/finalCourses}}
@@ -166,7 +166,7 @@
                         Added</strong></h1>
                 <select multiple="multiple" id='lstBox1' class="form-control" style="height:150px">
                     {{#testProblems}}
-                     <option value="{{Problem_Id}}">{{Problem_Id}}: {{Title}}</option>
+                     <option value="{{Problem_Id_Value}}">{{Problem_Id}}: {{Title}}</option>
                     {{/testProblems}}
                 </select>
             </div>
@@ -208,7 +208,7 @@
     <script src="../js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="../js/theme.js"> </script>
-    <script src="../js/createContest.js"></script>
+    <script src="../js/editTest.js"></script>
     <script>
         function strDes(a, b) {
             if (a.value > b.value) return 1;
@@ -223,7 +223,7 @@
                     alert("Nothing to move.");
                     e.preventDefault();
                 }
-                if (selectedOpts.val().split(' ')[1] == '-1') {
+                if (selectedOpts.val().split(' ')[1] === '-1') {
                     alert("Not authorised to remove this question");
                     return
                     e.preventDefault();

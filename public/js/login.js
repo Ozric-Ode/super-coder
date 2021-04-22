@@ -20,6 +20,8 @@ $signin.addEventListener('click', async (e) => {
 
         })
         const data = await response.json()
+        delete data.Password
+        delete data.token
         console.log(data)
         if (response.status !== 200) {
             throw new Error(data.errormsg)
