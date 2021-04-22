@@ -44,6 +44,22 @@ const getProblem = async(Problem_Id) => {
     }
 };
 
+const checkIfProblemExists = async(Problem_Id) => {
+    try {
+        const pool = await dbFunction.connectToDb();
+        let query = "SELECT Problem_Id FROM programming_problem WHERE Problem_Id = ?";
+        const problemResponse = await pool.query(query, [Problem_Id]);
+        await dbFunction.disconnectFromDb(pool);
+        if(problemResponse[0].length===0)
+        {   
+            return false;
+        }
+        return true
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+};
 
 
-module.exports = {getProblemsFromTestId, getProblemsNotInTest,getProblem};
+module.exports = {getProblemsFromTestId, getProblemsNotInTest,getProblem, checkIfProblemExists};
