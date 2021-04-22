@@ -63,11 +63,11 @@ webpagesRouter.get('/login/professor', verifytoken.verifytokenProfessor, (req, r
 
     res.sendFile('professorLogin.html', { root: path.join(__dirname, '../../Webpages') })
 })
-webpagesRouter.get('/profile/professor', verifytoken.verifytokenStudent, (req, res) => {
-    // if (req.Professor_Id)
+webpagesRouter.get('/profile/professor', verifytoken.verifytokenProfessor, (req, res) => {
+    if (req.Professor_Id)
     return res.sendFile('professorProfile.html', { root: path.join(__dirname, '../../Webpages') })
 
-
+    return res.redirect('/login/professor')
 })
 
 webpagesRouter.get('/ranklist/:testId', async (req, res) => {
@@ -101,17 +101,17 @@ webpagesRouter.get('/ranklist/:testId', async (req, res) => {
     })
 
 })
-webpagesRouter.get('/contest/:testId', async (req, res) => {
+webpagesRouter.get('/test/:testId', async (req, res) => {
     const Test_Id = req.params.testId;
     console.log(Test_Id)
     // res.sendFile('contestpage.html', { root: path.join(__dirname, '../../Webpages') })
     // res.render("contestpage.hbs")
 
     const contestPage = await getContestData(Test_Id);
-    // if(!contestPage||!contestPage[0]||!contestPage[0][0])
-    // return res.status(200).send('contest Not Found')
-
-
+    if(contestPage.length===0)
+    {
+        return res.status(404).sendFile('404page.html', { root: path.join(__dirname, '../../webpages') })
+     }
     const Title = contestPage[0].Title;
     const Course_Code = contestPage[0].Course_Code;
     const Date = contestPage[0].Date;
@@ -127,7 +127,7 @@ webpagesRouter.get('/contest/:testId', async (req, res) => {
     const problemList = testProblemRes[0];
     console.log(problemList)
     await dbFunction.disconnectFromDb(pool);
-    res.render("problemPage.hbs", {
+    res.render("testPage.hbs", {
         Title,
         Course_Code,
         Date,
@@ -144,7 +144,11 @@ webpagesRouter.get('/problem/:problemId', async(req, res) => {
     const Problem_Id = req.params.problemId;
     console.log(Problem_Id)
     const problemPage = await getProblemData(Problem_Id);
-
+    console.log(problemPage)
+    if(problemPage.length===0)
+    {
+       return res.status(404).sendFile('404page.html', { root: path.join(__dirname, '../../webpages') })
+    }
     const Title = problemPage[0].Title;
     const Problem_Statement = problemPage[0].Problem_Statement;
     const Time_Limit = problemPage[0].Time_Limit;
@@ -152,7 +156,7 @@ webpagesRouter.get('/problem/:problemId', async(req, res) => {
     const Professor_Id = problemPage[0].Professor_Id;
     const Test_id = problemPage[0].Test_id;
 
-    res.render("questionpage.hbs", {
+    res.render("problemPage.hbs", {
         Title,
         Problem_Statement,
         Professor_Id,
@@ -172,7 +176,7 @@ webpagesRouter.get('/problems', (req, res) => {
 
 webpagesRouter.get('/addProblem', (req, res) => {
 
-    res.sendFile('addProblem.html', { root: path.join(__dirname, '../../Webpages') })
+    res.render('addProblem.hbs')
 })
 
 
@@ -184,7 +188,7 @@ webpagesRouter.get('/addTest', verifytoken.verifytokenProfessor, async (req, res
     // res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
     const problems = await getProblems(req.Professor_Id);
     const courses = await getCourses();
-    res.render('addProblem.hbs', {
+    res.render('addTest.hbs', {
         problems,
         courses,
     })

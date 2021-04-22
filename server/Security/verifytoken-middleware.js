@@ -30,7 +30,7 @@ const verifytokenProfessor = (req, res, next) => {
         if (!decoded) {
             return next()
         }
-        console.log(decoded.Professor_Id + ' dsafasdf asdfsdaf')
+        console.log(' dsafasdf asdfsdaf', decoded.Professor_Id)
         req.Professor_Id = decoded.Professor_Id;
         next()
     } catch (error) {
