@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Super Coder</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="../css/Article-Clean.css">
+    <link rel="stylesheet" href="../css/Beautiful-Time-Picker.css">
+    <link rel="stylesheet" href="../css/Highlight-Blue.css">
+    <link rel="stylesheet" href="../css/opening-times-time-picker.css">
+</head>
+
+<body>
+    <div id="content">
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+            <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                <h1>Super Coder</h1>
+                <div class="d-none d-sm-block topbar-divider"></div><button class="btn btn-primary" type="button" style="margin-left: 0px;background: var(--success);border-color: var(--success);color: var(--light);">IDE</button>
+                <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <div class="input-group-append"></div>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" style="width: 500px;">
+                    <h1 style="color: var(--success);font-size: 30px;margin-top: 20px;"><strong>Upcoming Tests</strong></h1>
+                    {{#contestList}}
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href = "/edittest/{{Test_Id}}"><span>{{Title}}</span></a></li>                        
+                    </ul>
+                    {{/contestList}}
+                </div>
+                <div class="col">
+                    <section class="highlight-blue">
+                        <div class="container">
+                            <div class="intro">
+                                <h2 class="text-center">Add New Test</h2>
+                            </div>
+                            <div class="buttons"><a class="btn btn-primary" role="button" href="/addtest">New TEST</a></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="../js/theme.js"></script>
+</body>
+
+</html>

@@ -5,16 +5,17 @@ const verifytoken = require('../Security/verifytoken-middleware.js')
 const getRankListData = require('../utils/ranklist.js')
 const getContestData = require('../utils/contestpage.js')
 const getProblemData = require('../utils/problempage.js')
+const getEditContestListData = require('../utils/editTestList')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
 const getCourses = require('../utils/getCourses')
-const {getTest} = require('../utils/getTests.js');
-const {getProblemsFromTestId, getProblemsNotInTest,getProblem}= require('../utils/fetchProblems.js')
-const moment=require('moment')
+const { getTest } = require('../utils/getTests.js');
+const { getProblemsFromTestId, getProblemsNotInTest } = require('../utils/fetchProblems.js')
+const moment = require('moment')
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
     if (req.Student_Id)
         return res.redirect('/profile')
-    // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
+            // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
     res.redirect('/login')
 })
 
@@ -67,12 +68,12 @@ webpagesRouter.get('/login/professor', verifytoken.verifytokenProfessor, (req, r
 })
 webpagesRouter.get('/profile/professor', verifytoken.verifytokenProfessor, (req, res) => {
     if (req.Professor_Id)
-    return res.sendFile('professorProfile.html', { root: path.join(__dirname, '../../Webpages') })
+        return res.sendFile('professorProfile.html', { root: path.join(__dirname, '../../Webpages') })
 
     return res.redirect('/login/professor')
 })
 
-webpagesRouter.get('/ranklist/:testId', async (req, res) => {
+webpagesRouter.get('/ranklist/:testId', async(req, res) => {
     const Test_Id = req.params.testId;
     console.log(Test_Id)
     const ranklist = await getRankListData(Test_Id);
@@ -103,17 +104,16 @@ webpagesRouter.get('/ranklist/:testId', async (req, res) => {
     })
 
 })
-webpagesRouter.get('/test/:testId', async (req, res) => {
+webpagesRouter.get('/test/:testId', async(req, res) => {
     const Test_Id = req.params.testId;
     console.log(Test_Id)
-    // res.sendFile('contestpage.html', { root: path.join(__dirname, '../../Webpages') })
-    // res.render("contestpage.hbs")
+        // res.sendFile('contestpage.html', { root: path.join(__dirname, '../../Webpages') })
+        // res.render("contestpage.hbs")
 
     const contestPage = await getContestData(Test_Id);
-    if(contestPage.length===0)
-    {
+    if (contestPage.length === 0) {
         return res.status(404).sendFile('404page.html', { root: path.join(__dirname, '../../webpages') })
-     }
+    }
     const Title = contestPage[0].Title;
     const Course_Code = contestPage[0].Course_Code;
     const Date = contestPage[0].Date;
@@ -147,9 +147,8 @@ webpagesRouter.get('/problem/:problemId', async(req, res) => {
     console.log(Problem_Id)
     const problemPage = await getProblemData(Problem_Id);
     console.log(problemPage)
-    if(problemPage.length===0)
-    {
-       return res.status(404).sendFile('404page.html', { root: path.join(__dirname, '../../webpages') })
+    if (problemPage.length === 0) {
+        return res.status(404).sendFile('404page.html', { root: path.join(__dirname, '../../webpages') })
     }
     const Title = problemPage[0].Title;
     const Problem_Statement = problemPage[0].Problem_Statement;
@@ -170,22 +169,36 @@ webpagesRouter.get('/problem/:problemId', async(req, res) => {
 
 })
 
+webpagesRouter.get('/edittestlist', verifytoken.verifytokenProfessor, async(req, res) => {
+    console.log(req.Professor_Id)
+    if (!req.Professor_Id) {
+        res.redirect('/login/professor')
+    }
+    // res.sendFile('createContest.html', { root: path.join(__dirname, '../../Webpages') })
+    const contestList = await getEditContestListData();
+
+
+    res.render('editTestList.hbs', {
+        contestList
+    })
+})
+
 webpagesRouter.get('/problems', (req, res) => {
 
     res.sendFile('problemPage.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
 
-webpagesRouter.get('/addproblem', verifytoken.verifytokenProfessor,(req, res) => {
+webpagesRouter.get('/addproblem', verifytoken.verifytokenProfessor, (req, res) => {
     console.log(req.Professor_Id)
     if (!req.Professor_Id) {
         res.redirect('/login/professor')
     }
-  res.render('addProblem.hbs')
+    res.render('addProblem.hbs')
 })
 
 
-webpagesRouter.get('/addtest', verifytoken.verifytokenProfessor, async (req, res) => {
+webpagesRouter.get('/addtest', verifytoken.verifytokenProfessor, async(req, res) => {
     console.log(req.Professor_Id)
     if (!req.Professor_Id) {
         res.redirect('/login/professor')
@@ -215,7 +228,7 @@ webpagesRouter.get('/editproblem/:problemId', verifytoken.verifytokenProfessor,a
 })
 
 
-webpagesRouter.get('/edittest/:testId', verifytoken.verifytokenProfessor, async (req, res) => {
+webpagesRouter.get('/edittest/:testId', verifytoken.verifytokenProfessor, async(req, res) => {
     console.log(req.Professor_Id)
     if (!req.Professor_Id) {
         res.redirect('/login/professor')
@@ -236,7 +249,7 @@ webpagesRouter.get('/edittest/:testId', verifytoken.verifytokenProfessor, async 
             problem.Problem_Id_Value=problem.Problem_Id+' 0';
         }
     })
-    const test={
+    const test = {
         ...testRes[0]
     }
     console.log('problems ki mks',testProblems)
@@ -256,12 +269,12 @@ webpagesRouter.get('/edittest/:testId', verifytoken.verifytokenProfessor, async 
     })
 })
 
-webpagesRouter.get('/addcourse', verifytoken.verifytokenProfessor,async (req, res) => {
+webpagesRouter.get('/addcourse', verifytoken.verifytokenProfessor, async(req, res) => {
     if (!req.Professor_Id) {
         res.redirect('/login/professor')
     }
     const courses = await getCourses();
-    res.render('addCourse.hbs',{
+    res.render('addCourse.hbs', {
         courses
     });
 })
