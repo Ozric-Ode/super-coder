@@ -23,6 +23,22 @@ signupRouter.post('/register', async (req, res) => {
       return res.status(400).send(JSON.stringify(error))
       }
     const [rows,fields]=await pool.query('Insert into student SET ?', [student]);
+    let query1='SELECT Course_Code from course WHERE Semester = ? AND Batch = ?';
+    const courseRes=await pool.query(query1,[student.Semester, student.Batch]);
+    console.log(courseRes[0])
+    console
+      if(!!courseRes&&!!courseRes[0]&&courseRes[0].length>0){
+       
+        for(let i = 0;i < courseRes[0].length;i++)
+       {  const enrolls={
+        Course_Code:courseRes[0][i].Course_Code,
+        Student_Id:student.Student_Id}
+         let query2='INSERT INTO enrolls SET ?';
+         const insertRes=await pool.query(query2 ,[enrolls]);
+         console.log(insertRes);
+       } 
+      }
+    
     console.log(rows)
     await dbFunction.disconnectFromDb(pool);
     const token = await generateAuthToken(student.Student_Id)

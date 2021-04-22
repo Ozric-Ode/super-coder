@@ -28,7 +28,7 @@ $addCourse.addEventListener('click', async (e) => {
         }
         // console.log(response.status)
         window.alert(data.msg)
-        window.location.href = '/createcourse';
+        window.location.href = '/profile/professor';
     } catch (error) {
         alert(error.message)
         console.error(error)
