@@ -1,0 +1,199 @@
+body:not(.dark) .picker {
+  font-size: 11px;
+  background: #eeeeee;
+  width: 170px;
+  height: 230px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #2c3e50;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+body:not(.dark) .picker .time-wrap {
+  background: #6face8;
+  height: 55px;
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+body:not(.dark) .picker .time-wrap .active {
+  color: #ffffff;
+}
+
+body:not(.dark) .picker .time-wrap .time {
+  font-size: 40px;
+  font-weight: 900;
+}
+
+body:not(.dark) .picker .time-wrap .time .part {
+  cursor: pointer;
+}
+
+body:not(.dark) .picker .time-wrap .time .am-pm {
+  font-size: 20px;
+}
+
+body:not(.dark) .picker .face-wrap {
+  padding: 1em;
+}
+
+body:not(.dark) .picker .face-wrap .face {
+  position: relative;
+  background: #fff;
+  height: 13em;
+  border-radius: 50%;
+  cursor: move;
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number {
+  position: absolute;
+  -webkit-transition: opacity 0.4s, -webkit-transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81);
+  transition: opacity 0.4s, -webkit-transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81);
+  transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
+  transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s, -webkit-transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81);
+  text-align: center;
+  pointer-events: none;
+  width: 100%;
+  top: 6em;
+  line-height: 1em;
+  height: 1em;
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="0"] {
+  -webkit-transform: rotate(0deg) translateY(-5.5em) rotate(0deg);
+  transform: rotate(0deg) translateY(-5.5em) rotate(0deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="1"] {
+  -webkit-transform: rotate(30deg) translateY(-5.5em) rotate(-30deg);
+  transform: rotate(30deg) translateY(-5.5em) rotate(-30deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="2"] {
+  -webkit-transform: rotate(60deg) translateY(-5.5em) rotate(-60deg);
+  transform: rotate(60deg) translateY(-5.5em) rotate(-60deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="3"] {
+  -webkit-transform: rotate(90deg) translateY(-5.5em) rotate(-90deg);
+  transform: rotate(90deg) translateY(-5.5em) rotate(-90deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="4"] {
+  -webkit-transform: rotate(120deg) translateY(-5.5em) rotate(-120deg);
+  transform: rotate(120deg) translateY(-5.5em) rotate(-120deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="5"] {
+  -webkit-transform: rotate(150deg) translateY(-5.5em) rotate(-150deg);
+  transform: rotate(150deg) translateY(-5.5em) rotate(-150deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="6"] {
+  -webkit-transform: rotate(180deg) translateY(-5.5em) rotate(-180deg);
+  transform: rotate(180deg) translateY(-5.5em) rotate(-180deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="7"] {
+  -webkit-transform: rotate(210deg) translateY(-5.5em) rotate(-210deg);
+  transform: rotate(210deg) translateY(-5.5em) rotate(-210deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="8"] {
+  -webkit-transform: rotate(240deg) translateY(-5.5em) rotate(-240deg);
+  transform: rotate(240deg) translateY(-5.5em) rotate(-240deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="9"] {
+  -webkit-transform: rotate(270deg) translateY(-5.5em) rotate(-270deg);
+  transform: rotate(270deg) translateY(-5.5em) rotate(-270deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="10"] {
+  -webkit-transform: rotate(300deg) translateY(-5.5em) rotate(-300deg);
+  transform: rotate(300deg) translateY(-5.5em) rotate(-300deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .face-number[data-css-time="11"] {
+  -webkit-transform: rotate(330deg) translateY(-5.5em) rotate(-330deg);
+  transform: rotate(330deg) translateY(-5.5em) rotate(-330deg);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .handle {
+  -webkit-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+  height: 1.65em;
+  width: 1.65em;
+  top: 5.675em;
+  left: 5.675em;
+  position: absolute;
+  background: rgba(0, 153, 204, 0.5);
+  border-radius: 50%;
+  -webkit-transform: rotate(300deg) translateY(-5.5em);
+  transform: rotate(300deg) translateY(-5.5em);
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .handle-spot {
+  height: 0.5em;
+  width: 0.5em;
+  top: 0.575em;
+  left: 0.575em;
+  position: absolute;
+  background: #33b5e5;
+  border-radius: 50%;
+}
+
+body:not(.dark) .picker .face-wrap .face .face-set .handle-bar {
+  -webkit-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+  -webkit-transform-origin: bottom;
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 6.5em;
+  background: #33b5e5;
+  width: 1px;
+  height: 1em;
+  left: 6.5em;
+}
+
+body:not(.dark) .picker .am-pm-btns {
+  margin-top: -1.825em;
+  padding: 1em;
+  padding-top: 0;
+  height: 1.65em;
+  text-align: center;
+}
+
+body:not(.dark) .picker .am-pm-btns .am-pm-btn {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background: #6face8;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+  line-height: 20px;
+}
+
+body:not(.dark) .picker .am-pm-btns .am-pm-btn.am {
+  float: left;
+}
+
+body:not(.dark) .picker .am-pm-btns .am-pm-btn.pm {
+  float: right;
+}
+
+body:not(.dark) .picker .am-pm-btns .am-pm-btn.active {
+  background: #80cce6;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
