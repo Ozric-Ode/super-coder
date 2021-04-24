@@ -10,7 +10,7 @@ const getMyProblemsData = require('../utils/editProblemList')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
 const getCourses = require('../utils/getCourses')
-const { getTest, checkIfTestExists } = require('../utils/getTests.js');
+const { getTest, checkIfTestExists, getTests } = require('../utils/getTests.js');
 const { getProblemsFromTestId, getProblemsNotInTest,getProblem, checkIfProblemExists } = require('../utils/fetchProblems.js')
 const moment = require('moment')
 webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
@@ -21,7 +21,8 @@ webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
 })
 
 webpagesRouter.get('/ide', (req, res) => {
-    //adding new ide screen. remove next line and uncomment the next text line
+   
+   
     res.sendFile('ideScreen.html', { root: path.join(__dirname, '../../Webpages') })
 
     // res.sendFile('ide.html', { root: path.join(__dirname, '../../Webpages') })
@@ -183,6 +184,25 @@ webpagesRouter.get('/edittestlist', verifytoken.verifytokenProfessor, async(req,
         contestList
     })
 })
+webpagesRouter.get('/submitsolution/:problemId', verifytoken.verifytokenStudent, async(req, res) => {
+    console.log(req.Student_Id)
+    if (!req.Student_Id) {
+        res.redirect('/login')
+    }
+    const problem=await getProblemData(req.params.problemId)
+    if(problem.length===0)
+    {
+        return res.status(404).sendFile('404page.html', { root: path.join(__dirname, '../../webpages') })
+   
+    }
+    const test=await getTest(problem[0].Test_Id)
+    // console.log(req.params.problemId);
+    res.render('ideScreen.hbs',{
+        testTitle:test[0].Title,
+        testId:test[0].Test_Id,
+        problemId:problem[0].Problem_Id
+    })
+})
 
 webpagesRouter.get('/myproblems', verifytoken.verifytokenProfessor, async(req, res) => {
     console.log(req.Professor_Id)
@@ -277,7 +297,7 @@ webpagesRouter.get('/edittest/:', verifytoken.verifytokenProfessor, async(req, r
     const test = {
         ...testRes[0]
     }
-    console.log('problems ki mks',testProblems)
+
     // console.log('test date', moment(test.Date).format('yyyy-MM-DD'))
     
     const finalCourses = courses.filter(course=> course.Course_Code!==test.Course_Code)
@@ -306,9 +326,13 @@ webpagesRouter.get('/addcourse', verifytoken.verifytokenProfessor, async(req, re
 
 
 
-webpagesRouter.get('/problems', (req, res) => {
-
-    res.sendFile('contestPages.html', { root: path.join(__dirname, '../../Webpages') })
+webpagesRouter.get('/testlist',verifytoken.verifytokenStudent,async (req, res) => {
+    if (!req.Student_Id) {
+        return res.redirect('/profile')
+    }
+    const {pastTests, currentTests, futureTests}=await getTests();
+    console.log({pastTests, currentTests, futureTests})
+    res.render('contestPages.hbs',{pastTests, currentTests, futureTests})
 })
 
 webpagesRouter.get('/home', (req, res) => {

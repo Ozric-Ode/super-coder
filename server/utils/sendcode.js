@@ -1,8 +1,7 @@
 const request = require('postman-request')
 
 const getToken = ({ code, stdin, language_id }) => {
-
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
         const options = {
             method: 'POST',
             url: 'https://judge0-ce.p.rapidapi.com/submissions',
@@ -33,7 +32,38 @@ const getToken = ({ code, stdin, language_id }) => {
 
 }
 
-
+const getTokenForSubmit = ({ code, stdin, language_id, expected_output}) => {
+    return new Promise((resolve, reject) => {
+          const options = {
+              method: 'POST',
+              url: 'https://judge0-ce.p.rapidapi.com/submissions',
+              qs: { base64_encoded: 'true', fields: '*' },
+              headers: {
+                  'content-type': 'application/json',
+                  'x-rapidapi-key': process.env.JUDGEZERO_API_KEY,
+                  'x-rapidapi-host': 'judge0-ce.p.rapidapi.com',
+                  useQueryString: true
+              },
+              body: {
+                  language_id,
+                  source_code: code,
+                  stdin,
+              },
+              json: true
+          };
+          request(options, (error, res) => {
+              if (error) {
+                  // callback('Judge0 has stopped working')
+                  reject('Judge0 has stopped working')
+              }
+              // callback(undefined, res.body)
+              // console.log(res.body)
+              resolve(res.body)
+          })
+      })
+  
+  }
+  
 
 // const getToken=(code,callback)=>{
 //     var req = unirest("POST", "https://judge0-ce.p.rapidapi.com/submissions");
@@ -69,4 +99,4 @@ const getToken = ({ code, stdin, language_id }) => {
 
 //     }
 
-module.exports = getToken
+module.exports = {getToken, getTokenForSubmit}
