@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -9,9 +8,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
     <link rel="stylesheet" href="../fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../fonts/fontawesome5-overrides.min.css">
     <link rel="stylesheet" href="../css/Article-Clean.css">
-    <link rel="stylesheet" href="../css/Beautiful-Time-Picker.css">
-    <link rel="stylesheet" href="../css/opening-times-time-picker.css">
 </head>
 
 <body>
@@ -27,33 +26,45 @@
                 </form><button class="btn btn-primary" type="button">Login</button><button class="btn btn-primary" type="button" style="color: var(--blue);background: var(--white);margin-left: 20px;">Sign Up</button>
             </div>
         </nav>
-        <h1 style="font-size: 39px;text-align: center;color: var(--success);margin-bottom: 20px;"><strong>Create Course</strong></h1>
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 align-self-center" style="width: 279px;">
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Course Code</strong></h1><textarea style="height: 30px;"></textarea>
+            <div class="row">
+                <div class="col-md-12" style="width: 1700px;">
+                   <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Problem Code</strong></h1>
+                    <div class="input-group mb-+">
+                    <input value="{{problemId}}" type="text" class="form-control col-md-4 problemCode" placeholder="Problem Code" aria-label="Problem Code" aria-describedby="basic-addon2" disabled>
+                    </div>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Problem Name</strong></h1>
+                    <input value="{{title}}" type="text" class="form-control col-md-4 title"></input>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Time Limit Problem</strong></h1>
+                    <input value="{{timeLimit}}" type="text" class="form-control col-md-4 timeLimit" placeholder="Time Limit" aria-label="Time Limit" aria-describedby="basic-addon2">
+                    <h1 style="font-size: 20px;width: 450px;margin-top: 14px;margin-bottom: 0px;"><strong>Enter Problem Content story</strong></h1><textarea class="content" style="height: 400px;width: 900px;"> {{content}}</textarea>
+                    <h2 style="font-size: 20px;margin-top: 20px;"><strong>Test case input file</strong></h2>
+                    <input type="file" accept=".txt" class="form-control-file inputFile">
+                    <h2 style="font-size: 20px;margin-top: 20px;"><strong>Test case output file</strong><br></h2>
+                    <input type="file" accept=".txt" class="form-control-file outputFile">
                     <section class="article-clean">
                         <div class="container" style="width: 1000px;background: var(--white);">
                             <div class="intro"></div>
                         </div>
                     </section>
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Course Name</strong></h1><textarea style="height: 30px;"></textarea>
-                </div>
-                <div class="col align-self-center">
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Semester</strong></h1><textarea style="height: 30px;"></textarea>
-                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Batch</strong></h1><textarea style="height: 30px;"></textarea>
-                    <div style="width:170px;box-shadow:0px 0px 4px 0px rgba(0,0,0,0.3);border-radius:4px;display:inline-block;position:relative;margin-right:40px;margin-bottom:40px;"></div>
                 </div>
             </div>
-        </div>
+       
+          <div style="text-align:center;">
+        <button class="btn btn-primary" id="save" type="button" style="margin-top: 25px;">
+            Save Test
+        </button>
     </div>
-    <div class="row">
-        <div class="col text-center align-self-start ml-auto"><button class="btn btn-primary text-left" type="button" style="margin-top: 15px;font-size: 20px;">Submit</button></div>
+     </div>
     </div>
+  
     <script src="../js/jquery.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/chart.min.js"></script>
+    <script src="../js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="../js/theme.js"></script>
+    <script src="../js/editProblem.js"></script>
 </body>
 
 </html>

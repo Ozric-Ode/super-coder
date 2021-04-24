@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Super Coder</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="../fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/Article-Clean.css">
+</head>
+
+<body>
+    <div id="content">
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+            <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3"
+                    id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                <h1>Super Coder</h1>
+                <div class="d-none d-sm-block topbar-divider"></div><button class="btn btn-primary" type="button"
+                    style="margin-left: 0px;background: var(--success);border-color: var(--success);color: var(--light);">IDE</button>
+                <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group">
+                        <div class="input-group-append"></div>
+                    </div>
+                </form><button class="btn btn-primary" type="button">Login</button><button class="btn btn-primary"
+                    type="button" style="color: var(--blue);background: var(--white);margin-left: 20px;">Sign
+                    Up</button>
+            </div>
+        </nav>
+        <h1 style="font-size: 39px;text-align: center;color: var(--success);margin-bottom: 20px;"><strong>Create
+                Course</strong></h1>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 align-self-center" style="width: 279px;">
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Course Code</strong></h1>
+                    <input style="height: 30px;" class="courseCode"></input>
+                    <section class="article-clean">
+                        <div class="container" style="width: 1000px;background: var(--white);">
+                            <div class="intro"></div>
+                        </div>
+                    </section>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Course Name</strong></h1>
+                    <input style="height: 30px;" class="courseName"></input>
+                </div>
+                <div class="col-md-4 align-self-center">
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Semester</strong></h1>
+                   <select class="dropdown form-control" name="semester" id="semester">
+                                            <option value="0">Select Semester</option>
+                                            <option value="1">I</option>
+                                            <option value="2">II</option>
+                                            <option value="3">III</option>
+                                            <option value="4">IV</option>
+                                            <option value="5">V</option>
+                                            <option value="6">VI</option>
+                                            <option value="7">VII</option>
+                                            <option value="8">VIII</option>
+                                        </select>
+                    <h1 style="font-size: 20px;width: 250px;margin-top: 14px;"><strong>Enter Batch</strong></h1>
+                     <select class="dropdown form-control" name="select1" id="batch">
+                                                <option value="0">Select Batch</option>
+                                                <option value="2017">2017</option>
+                                                <option value="2018">2018</option>
+                                                <option value="2019">2019</option>
+                                                <option value="2020">2020</option>
+                                            </select>
+                    <div
+                        style="width:170px;box-shadow:0px 0px 4px 0px rgba(0,0,0,0.3);border-radius:4px;display:inline-block;position:relative;margin-right:40px;margin-bottom:40px;">
+                    </div>
+                </div>
+                <div class="col-md-4 align-self-center">
+                    <h1 style="color: var(--success);font-size: 30px;margin-top: 20px;"><strong>Current Courses</strong>
+                    </h1>
+                    {{#if courses}}
+                    {{#courses}}
+                    <ul class="list-group">
+                        <li class="list-group-item"><span>{{Course_Code}}:{{Name}}-{{Semester}}-{{Batch}}</span></li>
+                    </ul>
+                    {{/courses}}
+                    {{else}}
+                    <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 90px;"><strong>No Couses Added
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center align-self-start ml-auto">
+            <button class="btn btn-primary text-left addCourse" type="button" style="margin-top: 15px;font-size: 20px;">Add Course</button></div>
+    </div>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/createCourse.js"> </script>
+</body>
+
+</html>

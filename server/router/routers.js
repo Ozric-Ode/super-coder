@@ -1,17 +1,41 @@
 const express = require('express')
-const getToken = require('../utils/sendcode')
+const {getToken, getTokenForSubmit} = require('../utils/sendcode')
 const workOnToken = require('../utils/recieveSolution')
-var mysql = require('mysql');
 const submitRouter = new express.Router()
 const dbFunction=require('../database/connectToDb.js')
+
 submitRouter.post('/submit', async (req, res) => {
+    
     try {
         const obj = {
             code: req.body.code,
             stdin: req.body.stdin,
             language_id: req.body.language_id,
         }
+        console.log(obj)
         const token = await getToken(obj)
+        console.log(token.token)
+        const finalSolution = await workOnToken(token)
+        console.log(finalSolution)
+        return res.send(finalSolution)
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send(error)
+    }
+})
+
+submitRouter.post('/submitSolution/:problemId', async (req, res) => {
+    
+    try {
+        console.log(req.params.problemId)
+        const obj = {
+            code: req.body.code,
+            stdin: '' ,
+            language_id: req.body.language_id,
+            expected_output: ''
+        }
+        console.log(obj)
+        const token = await getTokenForSubmit(obj)
         console.log(token.token)
         const finalSolution = await workOnToken(token)
         console.log(finalSolution)

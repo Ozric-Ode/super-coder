@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i">
-    <link rel="stylesheet" href="../css/Pretty-Table-1.css">
     <link rel="stylesheet" href="../css/Pretty-Table.css">
+    <link href="../css/one-page-wonder.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <header class="text-center masthead">
-       <div class="container">
+    <header class="text-center text-white masthead">
+        <div class="masthead-content">
+            <div class="container">
                 <h1 class="masthead-heading mb-0">{{Title}}</h1>
-                <h4 class="masthead-subheading mb-0">{{Course_Code}}</h4>
                 <h2 class="masthead-subheading mb-0">{{Date}}</h2>
-                <h3 class="masthead-subheading mb-0">{{Start_Time}} - {{End_Time}}</h3><a class="btn btn-primary btn-xl rounded-pill mt-5" role="button" href="#">RANKLIST</a>
+                <h3 class="masthead-subheading mb-0">{{Course_Code}}</h3>
+                <h3 class="masthead-subheading mb-0">{{Start_Time}} - {{End_Time}}</h3><a class="btn btn-primary btn-xl rounded-pill mt-5" role="button" href="/ranklist/{{Test_Id}}">RANKLIST</a>
             </div>
+        </div>
         <div class="bg-circle-1 bg-circle"></div>
         <div class="bg-circle-2 bg-circle"></div>
         <div class="bg-circle-3 bg-circle"></div>
@@ -41,10 +43,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 {{#problemList}}
+                                {{#problemList}}
                                 <tr>
-                                    <td>{{Problem_Id}}</td>
-                                    <td>{{Title}}</td>                                    
+                                    <td><a href="/problem/{{Problem_Id}}">{{Problem_Id}}</a></td>
+                                    <td>{{Title}}</td>
+                                    <td>100</td>
                                 </tr>
                                 {{/problemList}}
                             </tbody>
