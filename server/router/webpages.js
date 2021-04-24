@@ -157,7 +157,7 @@ webpagesRouter.get('/problem/:problemId', async(req, res) => {
     const Time_Limit = problemPage[0].Time_Limit;
 
     const Professor_Id = problemPage[0].Professor_Id;
-    const Test_id = problemPage[0].Test_id;
+    const Test_Id = problemPage[0].Test_Id;
 
     res.render("problemPage.hbs", {
         Title,
@@ -165,7 +165,7 @@ webpagesRouter.get('/problem/:problemId', async(req, res) => {
         Professor_Id,
         Problem_Id,
         Time_Limit,
-        Test_id
+        Test_Id
     })
 
 
@@ -268,7 +268,7 @@ webpagesRouter.get('/editproblem/:problemId', verifytoken.verifytokenProfessor,a
 })
 
 
-webpagesRouter.get('/edittest/:', verifytoken.verifytokenProfessor, async(req, res) => {
+webpagesRouter.get('/edittest/:testId', verifytoken.verifytokenProfessor, async(req, res) => {
     console.log(req.Professor_Id)
     if (!req.Professor_Id) {
         res.redirect('/login/professor')

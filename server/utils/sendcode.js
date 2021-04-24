@@ -48,6 +48,7 @@ const getTokenForSubmit = ({ code, stdin, language_id, expected_output}) => {
                   language_id,
                   source_code: code,
                   stdin,
+                  expected_output
               },
               json: true
           };

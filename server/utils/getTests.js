@@ -14,11 +14,11 @@ const getTest = async(testId) => {
         return false;
     }
 };
-const checkIfTestExists = async(Problem_Id) => {
+const checkIfTestExists = async(Test_Id) => {
     try {
         const pool = await dbFunction.connectToDb();
-        let query = "SELECT Problem_Id FROM programming_problem WHERE Problem_Id = ?";
-        const testResponse = await pool.query(query, [Problem_Id]);
+        let query = "SELECT Test_Id FROM programming_test WHERE Test_Id = ?";
+        const testResponse = await pool.query(query, [Test_Id]);
         await dbFunction.disconnectFromDb(pool);
         if(!testResponse||!testResponse[0]||testResponse[0].length===0)
         {
