@@ -2,27 +2,28 @@
 //const $title=document.querySelector('#title');
 //const $ddate=document.querySelector('#date');
 //const $Content=document.querySelector('#blogText');
-$(function() {
-    $(".triangle-up").click(function() {
-        var count = parseInt($("~ .text", this).text());
+//########################
+// $(function() {
+//     $(".triangle-up").click(function() {
+//         var count = parseInt($("~ .text", this).text());
 
-        var count = count + 1;
-        $("~ .text", this).text(count);
+//         var count = count + 1;
+//         $("~ .text", this).text(count);
 
-    }, );
-});
+//     }, );
+// });
 
-$(function() {
-    $(".triangle-down").click(function() {
-        var count = parseInt($("~ .text", this).text());
+// $(function() {
+//     $(".triangle-down").click(function() {
+//         var count = parseInt($("~ .text", this).text());
 
-        var count = count - 1;
+//         var count = count - 1;
 
-        $("~ .text", this).text(count);
+//         $("~ .text", this).text(count);
 
-    });
-});
-
+//     });
+// });
+//####################
 // ////////////////////
 //to make for it.................in serverside!!!
 // const blogs= async(obj)=>{
