@@ -187,13 +187,15 @@
             <div class="subject-info-box-2 col-md-4">
 
                 {{#if problems}}
-                <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 90px;"><strong>Problems
-                        Available</strong></h1>
-                {{#problems}}
+                <h1 style="font-size: 20px;width: 200px;margin-top: 44px;margin-left: 90px;">
+                    <strong>Problems Available</strong></h1>
+               
                 <select multiple="multiple" id='lstBox2' class="form-control" style="height:150px">
+                    {{#problems}}
                     <option value="{{Problem_Id}}">{{Problem_Id}}: {{Title}}</option>
+                 {{/problems}}
                 </select>
-                {{/problems}}
+               
                 {{else}}
                 <h1 style="font-size: 20px;width: 220px;margin-top: 44px;margin-left: 60px;"><strong>No Problems
                         Available</strong></h1> <select multiple="multiple" id='lstBox2' class="form-control"
