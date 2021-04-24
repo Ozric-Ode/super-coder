@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Super Coder</title>
+  <!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../../css/createblog.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <h1 id="title">{{title}}</h1>
+<p  style = "text-align: left;font-family:georgia,garamond,serif;font-size:18px;font-style:bold;" id="author">{{author}}</p>
+<p  style = "text-align: left;font-family:georgia,garamond,serif;font-size:15px;font-style:bold;" id="date">{{date}}</p>
+  <!-- <textarea rows="1" cols="40"  id="blogTitle"></textarea><br></br> -->
+  <pre rows="10" cols="40" aria-placeholder="12"   id="blogText">{{Content}}
+  </pre><br></br>
+  
+   <textarea rows="2" cols="40" placeholder="Enter comment here..." id="blogcomment"></textarea><br></br>
+  <button  onclick="returnPost()">comment</button>
+  <br></br>
+  <br></br>
+  <br></br>
+  <button onclick="previousPage()">Previous Page</button>
+  <button onclick="nextPage()">Next Page</button>
+  <!-- Post details go here -->
+  <div id="app"><div>
+</div>
+<!-- partial -->
+  <script  src="../../js/readblog.js"></script>
+</body>
+</html>
+{{!-- $Content.innerHTML=obj.Content;
+    $author.innerHTML=obj.Student_Id;
+    $title.innerHTML=obj.Title;
+    $ddate.innerHTML=obj.Date; --}}

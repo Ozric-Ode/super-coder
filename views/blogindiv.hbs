@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Super Coder</title>
+  <!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../../css/createblog.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <h1 id="title">{{title}}</h1>
+<p  style = "text-align: left;font-family:georgia,garamond,serif;font-size:18px;font-style:bold;" id="author">{{authororiginal}}</p>
+<p  style = "text-align: left;font-family:georgia,garamond,serif;font-size:15px;font-style:bold;" id="date">{{date}}</p>
+  <!-- <textarea rows="1" cols="40"  id="blogTitle"></textarea><br></br> -->
+  <pre rows="10" cols="40" aria-placeholder="12"   id="blogText">{{Content}}
+  </pre><br></br>
+  
+   <textarea rows="2" cols="40" placeholder="Enter comment here..." id="blogcomment"></textarea><br></br>
+  <button  onclick="returnPost()">comment</button>
+  <br></br>
+  <br></br>
+  <br></br>
+
+  {{#commentObjs}}
+    <div class="card mb-3">
+            <h3 class="card-header mb-3">{{author}}</h3>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        {{!-- <input type="name" class="form-control" id="inputEmail3" placeholder="username"> --}}
+                        </p id="comment_text">{{comments}}</p>
+                        {{!-- <p id={{Blog_id}}></p> --}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{!-- <div class="col-sm-12">
+                        <button type="find" class="btn btn-primary">find</button>
+                    </div> --}}
+                </div>
+            </form>
+        </div>
+  {{/commentObjs}}
+  {{!-- <button onclick="previousPage()">Previous Page</button>
+  <button onclick="nextPage()">Next Page</button> --}}
+  <!-- Post details go here -->
+  <div id="app"><div>
+</div>
+<!-- partial -->
+  <script  >
+
+  async function returnPost(){
+    const authororiginal=document.querySelector('#author');
+const Title=document.querySelector('#title');
+const date=document.querySelector('#date');
+const CContent=document.querySelector('#blogText');
+
+    var student=localStorage.getItem('Student_Id');
+    var professor=localStorage.getItem('Professor_Id');
+    var bg_id=document.querySelector('#Blog_Id');
+    var comment_txt=document.querySelector('#blogcomment');
+    console.log("ggggggg#######"+comment_txt.value);
+    var str=location.href.split('/')[location.href.split('/').length-1];
+const obj={
+  Blog_id:parseInt(str),
+  Comments:comment_txt.value,
+  Student_Id:student,
+  Professor_Id:professor,
+  title:Title.innerHTML,
+  date:date.innerHTML,
+  Content:CContent.innerHTML,
+  author:authororiginal.innerHTML,
+}
+//console.log('')
+    try{
+       // const res = await fetch('/submit', {
+         //   method: 'POST',
+           // headers: {
+             //   'Content-Type': 'application/json',
+               // 'Accept': '*/*'
+      //      },
+        //    body: JSON.stringify(obj)
+       // })
+        var strr=location.href;
+        console.log("1##########"+JSON.stringify(obj));
+      const objj= await fetch(strr,{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'Accept':'*/*',
+        },
+        body:JSON.stringify(obj),
+      })
+      if(objj.status==200)
+      location.reload();
+      
+
+    }
+    catch(e){
+      console.log("the error is"+e);
+    }
+  }
+  </script>
+</body>
+</html>
+{{!-- $Content.innerHTML=obj.Content;
+    $author.innerHTML=obj.Student_Id;
+    $title.innerHTML=obj.Title;
+    $ddate.innerHTML=obj.Date; --}}
