@@ -3,19 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <title>Super Coder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+  <link rel="stylesheet" href="../fonts/fontawesome-all.min.css">
+  <link rel="stylesheet" href="../fonts/font-awesome.min.css">
+  <link rel="stylesheet" href="../fonts/fontawesome5-overrides.min.css">
+  <link rel="stylesheet" href="../css/Article-Clean.css">
   <!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->
   <link rel="stylesheet" href="./css/createblog.css">
 
 </head>
 <body>
+  <div id="wrapper">
+  <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+        style="height: 200px;">
+        <div class="container-fluid d-flex flex-column p-0" style="height: 700px;"><a
+                class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+                <div class="sidebar-brand-text mx-3"><span>Super Coder</span></div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+
+                <li class="nav-item"><a class="nav-link" href="/blogs"><i class="fas fa-table"></i><span>Blogs</span></a></li>
+                <li class="nav-item"><a class="nav-link active" href="/createblog"><i class="fas fa-table"></i><span>Create Blog</span></a></li>
+               
+                <li class="nav-item"><a class="nav-link" href="/home"><i
+                            class="fas fa-tachometer-alt"></i><span>Home</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/testlist"><i
+                            class="fas fa-table"></i><span>Programming Tests</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/profile"><i
+                            class="fas fa-user"></i><span>Profile</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="/ide"><i
+                                class="far fa-user-circle"></i><span>IDE</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout"><i
+                            class="far fa-user-circle"></i><span>Logout</span></a></li>
+
+            </ul>
+            <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+                    id="sidebarToggle" type="button"></button></div>
+        </div>
+    </nav>
+
 <!-- partial:index.partial.html -->
+
 <div class="container">
+   
   <h1> Super Coder Blog </h1>
   <textarea rows="1" cols="40" placeholder="Enter blog title here..." id="blogTitle"></textarea><br></br>
   <textarea rows="8" cols="50" placeholder="Enter blog post here..." id="blogText"></textarea><br></br>
   <button onclick="returnPost()">Post</button>
+  
   <!-- Post details go here -->
   <div id="app"><div>
+</div>
 </div>
 <!-- partial -->
   <script  src="./js/createblog.js"></script>
