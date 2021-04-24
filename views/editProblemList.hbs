@@ -16,10 +16,10 @@
 </head>
 
 <body>
-    <div id="content">
-        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
-            style="height: 200px;">
-            <div class="container-fluid d-flex flex-column p-0" style="height: 700px;"><a
+     <div id="wrapper">
+          <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+            style="height: 700px;">
+            <div class="container-fluid d-flex flex-column p-0"><a
                     class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
                     <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
                     <div class="sidebar-brand-text mx-3"><span>Super Coder</span></div>
@@ -27,18 +27,21 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
 
-                    <li class="nav-item"><a class="nav-link" href="/blogs"><i class="fas fa-table"></i><span>Blogs</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/createblog"><i class="fas fa-table"></i><span>Create Blog</span></a></li>
-                   
-                    <li class="nav-item"><a class="nav-link" href="/homepage"><i
-                                class="fas fa-tachometer-alt"></i><span>Home</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/testlist"><i
-                                class="fas fa-table"></i><span>Programming Tests</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/profile"><i
+                    <li class="nav-item"><a class="nav-link" href="/allblogs/1"><i
+                                class="fas fa-table"></i><span>Blogs</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/createblog"><i class="fas fa-table"></i><span>Create
+                                Blog</span></a></li>
+                     <li class="nav-item"><a class="nav-link" href="/edittestlist"><i class="fas fa-table"></i><span>
+                                Programming Tests</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/myproblems"><i class="fas fa-table"></i><span>
+                                My Problems</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/addcourse"><i class="fas fa-table"></i><span>Add New
+                                Course</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/profile/professor"><i
                                 class="fas fa-user"></i><span>Profile</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/ide"><i
-                                class="fas fa-table"></i><span>IDE</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/logout"><i
+                                <li class="nav-item"><a class="nav-link" href="/ide"><i
+                                    class="far fa-user-circle"></i><span>IDE</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout/professor"><i
                                 class="far fa-user-circle"></i><span>Logout</span></a></li>
 
                 </ul>
@@ -46,18 +49,19 @@
                         id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
-        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-            <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                <h1>Super Coder</h1>
-                <div class="d-none d-sm-block topbar-divider"></div><button class="btn btn-primary" type="button" style="margin-left: 0px;background: var(--success);border-color: var(--success);color: var(--light);">IDE</button>
-                <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <div class="input-group-append"></div>
-                    </div>
-                </form>
-            </div>
-        </nav>
+    <div id="content">
         <div class="container">
+              <nav class="navbar navbar-light navbar-expand bg-white shadow  " style="width: 1050px;">
+            <div class="container-fluid">
+                <button class="btn btn-link d-md-none rounded-circle mr-12" id="sidebarToggleTop" type="button">
+                    <i class="fas fa-bars">
+
+                    </i>
+                    </button>
+                <h1>Super Coder</h1>
+                
+                </div>
+        </nav>
             <div class="row">
                 <div class="col-md-4" style="width: 500px;">
                     <h1 style="color: var(--success);font-size: 30px;margin-top: 20px;"><strong>My Problems</strong></h1>
@@ -79,6 +83,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
