@@ -82,7 +82,7 @@ $submitSolution.addEventListener('click', async(e) => {
     const result = await res.json();
     console.log(result)
     console.log(result.status)
-    $solution.value = window.atob(result.stdout)
+    // $solution.value = window.atob(result.stdout)
     if(result.status.id===4)
     {
         alert("Wrong Answer");

@@ -9,7 +9,7 @@ const getEditContestListData = require('../utils/editTestList')
 const getMyProblemsData = require('../utils/editProblemList')
 const dbFunction = require('../database/connectToDb.js')
 const MySQLEvents = require('mysql-events');
-const getCourses = require('../utils/getCourses')
+const {getCourses,getCourse} = require('../utils/getCourses')
 const { getTest, checkIfTestExists, getTests } = require('../utils/getTests.js');
 const { getProblemsFromTestId, getProblemsNotInTest,getProblem, checkIfProblemExists } = require('../utils/fetchProblems.js')
 const moment = require('moment')
@@ -21,8 +21,6 @@ webpagesRouter.get('/', verifytoken.verifytokenStudent, (req, res) => {
 })
 
 webpagesRouter.get('/ide', (req, res) => {
-   
-   
     res.sendFile('ideScreen.html', { root: path.join(__dirname, '../../Webpages') })
 
     // res.sendFile('ide.html', { root: path.join(__dirname, '../../Webpages') })
@@ -43,12 +41,16 @@ webpagesRouter.get('/register', verifytoken.verifytokenStudent, (req, res) => {
     res.sendFile('register.html', { root: path.join(__dirname, '../../Webpages') })
 })
 
-webpagesRouter.get('/profile', verifytoken.verifytokenStudent, (req, res) => {
+webpagesRouter.get('/profile', verifytoken.verifytokenStudent, async (req, res) => {
     if (req.Student_Id)
-        return res.sendFile('profile.html', { root: path.join(__dirname, '../../Webpages') })
-
+   { 
+    const course=await getCourse(req.Student_Id)    
+    // console.log(course)   
+    return res.render('profile.hbs',{course})
+}
     // res.sendFile('login.html', { root: path.join(__dirname, '../../Webpages') })
-    res.redirect('/login')
+    // return res.sendFile('profile.html', { root: path.join(__dirname, '../../Webpages') })
+    return res.redirect('/login')
 })
 webpagesRouter.get('/blogs', (req, res) => {
     res.sendFile('blog.html', { root: path.join(__dirname, '../../Webpages') })
