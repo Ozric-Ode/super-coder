@@ -259,6 +259,21 @@ professorRouter.post('/addcourse', async (req, res) => {
         const insertTestRes=await pool.query(query1,[course]);
         console.log(insertTestRes);
        
+        let query2='SELECT Student_Id FROM student WHERE Batch=? and Semester=?';
+         console.log(query2)
+        const getStudentRes=await pool.query(query2,[course.Batch,course.Semester]);
+        console.log("getStudentRes",getStudentRes[0])
+
+        if(!!getStudentRes&&!!getStudentRes[0]&&getStudentRes[0].length>0)
+        {    for(let i = 0;i < getStudentRes[0].length;i++)
+            {  const enrolls={
+             Course_Code:course.Course_Code,
+             Student_Id:getStudentRes[0][i].Student_Id}
+              let query2='INSERT INTO enrolls SET ?';
+              const insertRes=await pool.query(query2 ,[enrolls]);
+              console.log(insertRes);
+            } 
+        }
         const obj={
             msg:'Congratulations Course Saved Succesfully'
         }
