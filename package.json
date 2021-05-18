@@ -36,6 +36,7 @@
     "path": "^0.12.7",
     "postman-request": "^2.88.1-postman.28",
     "ranked": "^0.4.0",
+    "serve-favicon": "^2.5.0",
     "unirest": "^0.6.0"
   }
 }
