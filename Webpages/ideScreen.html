@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>IDE - Super Coder</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
     <link rel="stylesheet" href="fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="fonts/font-awesome.min.css">
@@ -17,7 +17,7 @@
 
 <body id="page-top">
     <div id="wrapper">
-       
+
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <!-- <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -32,41 +32,69 @@
                     </div>
                 </nav> -->
                 <div class="row">
-                    
+
                 </div>
                 <div class="container">
                     <nav class="navbar navbar-light navbar-expand bg-white shadow  " style="width: 1100px;">
                         <div class="container-fluid">
-                            <button class="btn btn-link d-md-none rounded-circle mr-12" id="sidebarToggleTop" type="button">
+                            <button class="btn btn-link d-md-none rounded-circle mr-12" id="sidebarToggleTop"
+                                type="button">
                                 <i class="fas fa-bars">
-            
+
                                 </i>
-                                </button>
+                            </button>
                             <h1>Super Coder</h1>
-                            
-                            </div>
+
+                        </div>
                     </nav>
                     <div class="row">
                         <div class="col">
-                            <div class="container" style="margin-left: 0px;padding-left: 0px;width: 900px;padding-right: 0px;height: 60px;color: var(--blue);background: var(--blue);border-color: var(--blue);">
+                            <div class="container"
+                                style="margin-left: 0px;padding-left: 0px;width: 900px;padding-right: 0px;height: 60px;color: var(--blue);background: var(--blue);border-color: var(--blue);">
                                 <div class="row">
-                                    <div class="col align-self-center" style="text-align: center;width: 40px;"><strong style="color: var(--light);font-size: 18px;">Select Language:&nbsp;</strong></div>
+                                    <div class="col align-self-center" style="text-align: center;width: 40px;"><strong
+                                            style="color: var(--light);font-size: 18px;">Select Language:&nbsp;</strong>
+                                    </div>
                                     <div class="col align-self-center" style="width: 100px;">
-                                        <div class="dropdown" style="text-align: center;"><button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button" style="width: 150px;color: var(--white);background: var(--success);padding-right: 0px;font-size: 18px;">Dropdown </button>
-                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                                        <div class="dropdown" style="text-align: center;">
+
+                                            <select class="form-control Language-selector dropdown-toggle"
+                                                id="language-selector" name="select1" id="select1">
+                                                <option value="1">Select Language</option>
+                                                <option value="52">C++ (GCC 7.4.0)</option>
+                                                <option value="48">C (GCC 7.4.0)</option>
+                                                <option value="62">Java (OpenJDK 13.0.1)</option>
+                                                <option value="71">Python (3.8.1)</option>
+                                                <option value="63">JavaScript (Node.js 12.14.0)</option>
+                                                <option value="46">Bash</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col" style="height: 60px;width: 10px;">
                                         <div style="background: var(--pink);color: var(--pink);"></div>
                                     </div>
-                                          </div>
-                            </div><textarea class="flex-grow-1" style="width: 900px;height: 500px;"></textarea>
+                                </div>
+                            </div><textarea id="code" class="flex-grow-1"
+                                style="width: 900px;height: 500px;"></textarea>
                             <div class="btn-group" role="group"></div>
                         </div>
                         <div class="col" style="width: 100px;">
-                            <h1 style="color: var(--success);font-size: 25px;"><strong>Input</strong></h1><textarea style="height: 100px;"></textarea>
-                            <h1 style="font-size: 25px;color: var(--success);margin-top: 20px;"><strong>Output</strong></h1><textarea></textarea>
-                            <div class="btn-group" role="group"><button class="btn btn-primary" type="button" style="margin-right: 10px;margin-top: 30px;">Run</button></div>
+                            <h1 style="color: var(--success);font-size: 25px;">
+                                <strong>Input</strong>
+                            </h1>
+                            <textarea id="sample_in" style="height: 100px;"></textarea>
+                            <h1 style="font-size: 25px;color: var(--success);margin-top: 20px;">
+                                <strong>Output</strong>
+                            </h1>
+                            <textarea id="sample_out"> </textarea>
+
+                            <div class="btn-group" role="group">
+                                <button id="run" class="btn btn-primary" type="button"
+                                    style="margin-right: 10px;margin-top: 30px;">Run</button>
+                            </div>
+                            <div>
+                                <img id="loader" style="width: 100px; display: none;" src="../img/spinner.gif" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,12 +106,10 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.com/libraries/Chart.js"></script>
-    <script src="assets/js/bs-init.js"></script>
+    <script src="../js/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/supercode.js"> </script>
 </body>
 
 </html>

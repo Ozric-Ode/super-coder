@@ -1,18 +1,19 @@
-const dbFunction = require('../database/connectToDb.js')
-const moment = require('moment')
+const dbFunction = require('../database/connectToDb.js');
+const moment = require('moment');
 
-const getData = async() => {
+const getData = async () => {
     try {
+        console.log('came here');
         const pool = await dbFunction.connectToDb();
         const date = moment().format('yyyy-MM-DD');
-        let query = "SELECT * FROM programming_test WHERE Date > ?";
+        let query = "SELECT * FROM programming_test WHERE Date >= ?";
         const contestResponse = await pool.query(query, [date]);
-        console.log(contestResponse[0])
+        console.log(contestResponse[0]);
         const contestItems = contestResponse[0];
         await dbFunction.disconnectFromDb(pool);
-        return contestItems
+        return contestItems;
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return false;
     }
 };
