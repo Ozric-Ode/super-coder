@@ -19,7 +19,7 @@
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
             style="height: 200px;">
-            <div class="container-fluid d-flex flex-column p-0" style="height: 700px;"><a
+            <div class="container-fluid d-flex flex-column p-0" style="height: 700px; max-width: 200px;"><a
                     class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
                     <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
                     <div class="sidebar-brand-text mx-3"><span>Super Coder</span></div>
@@ -85,12 +85,17 @@
                             <div class="btn-group" role="group"></div>
                         </div>
                         <div class="col" style="width: 100px;">
-                            <h1 style="color: var(--success);font-size: 25px;"><strong>Input</strong></h1>
+                            <h1 style="color: var(--success);font-size: 25px;">
+                                <strong>Input</strong></h1>
                             <textarea id="sample_in"  style="height: 100px;"></textarea>
                             <h1 style="font-size: 25px;color: var(--success);margin-top: 20px;">
                                 <strong>Output</strong></h1>
                                 <textarea id="sample_out" > </textarea>
                             <div class="btn-group" role="group"><button id="run" class="btn btn-primary" type="button" style="margin-right: 10px;margin-top: 30px;">Run</button><button class="btn btn-primary submitSolution" type="button" style="margin-top: 30px;margin-left: 10px;">Submit</button></div>
+                        <div>
+                            <img id="loader" style="width: 100px; display: none;" src="../img/spinner.gif" />
+                        </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -103,11 +108,8 @@
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
     <script src="../js/jquery.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.com/libraries/Chart.js"></script>
-    <script src="../js/bs-init.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="../js/theme.js"></script>
       <script src="../js/submit.js"> </script>
 </body>
 
